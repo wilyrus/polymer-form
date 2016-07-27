@@ -1,0 +1,178 @@
+<!--
+
+-->
+<link rel="import" href="bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="bower_components/paper-styles/paper-styles.html">
+
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+
+<link rel="import" href="bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
+<link rel="import" href="bower_components/app-layout/helpers/helpers.html">
+<link rel="import" href="bower_components/app-route/app-location.html">
+<link rel="import" href="bower_components/app-route/app-route.html">
+<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="bower_components/iron-selector/iron-selector.html">
+
+
+<link rel="import" href="bower_components/iron-data-table/iron-data-table.html">
+<link rel="import" href="bower_components/iron-data-table/data-table-column.html">
+<link rel="import" href="bower_components/iron-data-table/data-table-column-sort.html">
+<link rel="import" href="bower_components/iron-data-table/default-styles.html">
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="bower_components/iron-ajax/iron-request.html">
+
+<dom-module id="initializer-page">
+    <app-location route="{{route}}"></app-location>
+    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+    <template>
+        <paper-drawer-panel force-narrow>
+            <paper-header-panel drawer>
+              <paper-toolbar>
+                <div>Application</div>
+              </paper-toolbar>
+              <div> Drawer content... </div>
+            </paper-header-panel>
+            <paper-header-panel main>
+                <paper-toolbar>
+                    <paper-icon-button icon="menu" paper-drawer-toggle id='superimp'></paper-icon-button>
+                    <div class="spacer"></div>
+                    <paper-icon-button icon="refresh"></paper-icon-button>
+                    <paper-icon-button icon="add">+</paper-icon-button>
+                    <div class="middle title">Title</div>
+                </paper-toolbar>
+
+                <template is="dom-bind">
+                    <iron-ajax url="users.json" last-response="{{users}}" auto></iron-ajax>
+                    <iron-data-table items="[[users]]">
+                        <data-table-column name="id">
+                            <template>[[index]] of [[size]]</template>
+                        </data-table-column>
+                        <data-table-column name="Full Name (string)" sort-by="name">
+                            <template>[[item.name]]</template>
+                        </data-table-column>
+                        <data-table-column name="Phone (number)" sort-by="phone">
+                            <template>[[item.phone]]</template>
+                        </data-table-column>
+                        <data-table-column name="Is active (boolean)" sort-by="isActive">
+                            <template>[[item.isActive]]</template>
+                        </data-table-column>
+                        <data-table-column name="Registered (datatime)" sort-by="registered">
+                            <template>[[item.last]]</template>
+                        </data-table-column>
+                        <data-table-column name="First Name" sort-by="name">
+                            <template>[[item.name]]</template>
+                        </data-table-column>
+                        <data-table-column name="First Name" sort-by="name">
+                            <template>[[item.name]]</template>
+                        </data-table-column>
+                    </iron-data-table>
+                    <script>
+                        document.addEventListener('WebComponentsReady', function() {
+                            Polymer({
+                                is: 'infinite-data',
+
+                                properties: {
+                                    dataSource: {
+                                        notify: true,
+                                        value: function() {
+                                            return this._dataSource.bind(this);
+                                        }
+                                    },
+
+                                    size: {
+                                        notify: true,
+                                        value: 50
+                                    },
+
+                                    users: Object
+                                },
+                                _dataSource: function(opts, cb) {
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.onreadystatechange = function() {
+                                        if (xhr.readyState == XMLHttpRequest.DONE) {
+                                            if (xhr.status == 200) {
+                                                var json = JSON.parse(xhr.responseText);
+
+                                                // if last page is reached, increment the size.
+                                                if (this.size / opts.pageSize >= opts.page) {
+                                                    this.size += opts.pageSize;
+                                                }
+
+                                                // returning a page full of users always.
+                                                cb(json.slice(0, opts.pageSize));
+                                            }
+                                        }
+                                    }.bind(this);
+
+                                    xhr.open("GET", 'users.json', true);
+                                    xhr.send();
+                                }
+                            });
+                        });
+                    </script>
+                </template>
+
+
+            </paper-header-panel>
+        </paper-drawer-panel>
+    </template>
+
+    <style>
+        /* local DOM styles go here */
+        :host {
+            display: block;
+            position: relative;
+            min-height: 100vh;
+            --app-primary-color: #202020;
+            --app-secondary-color: #757575;
+            --app-accent-color: #172C50;
+            --paper-button-ink-color: var(--app-accent-color);
+            --paper-icon-button-ink-color: var(--app-accent-color);
+            --paper-spinner-color: var(--app-accent-color);
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            color: var(--app-primary-color);
+        }
+
+        #paperDrawerPanel [main] {
+            text-align: center;
+            background-color: var(--google-grey-100);
+        }
+
+        #paperDrawerPanel [drawer] {
+            border-right: 1px solid var(--google-grey-300);
+        }
+
+        #paperDrawerPanel[right-drawer] [drawer] {
+            border-left: 1px solid var(--google-grey-300);
+        }
+
+        .centered {
+            min-width: calc(100% - 200px);
+        }
+
+        paper-toolbar paper-progress {
+            --paper-progress-active-color: var(--accent-color);
+        }
+
+        .spacer {
+            @apply(--layout-flex);
+        }
+    </style>
+
+    <!-- local DOM goes here -->
+    </template>
+
+    <script>
+        Polymer({
+            is: 'initializer-page',
+        });
+    </script>
+
+</dom-module>

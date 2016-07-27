@@ -1,0 +1,19 @@
+{
+  "name": "polymer-form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nestor57/polymer-form.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nestor57/polymer-form/issues"
+  },
+  "homepage": "https://github.com/Nestor57/polymer-form#readme"
+}
