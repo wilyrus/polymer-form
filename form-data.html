@@ -1,0 +1,47 @@
+<!--
+
+-->
+
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/iron-localstorage/iron-localstorage.html">
+
+<dom-module id="form-data">
+    <template>
+        <iron-localstorage name="form-data" value="{{items}}" on-iron-localstorage-load-empty="_initializeForm"></iron-localstorage>
+    </template>
+    <script>
+        Polymer({
+            is: 'form-data',
+            properties: {
+                items: {
+                    type: Array,
+                    observer: '_itemsLoaded'
+                },
+                selected: {
+                    type: Array,
+                    notify: true
+                }
+            },
+
+            _initializeForm: function() {
+                this.selected = [];
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        if (xhr.status == 200) {
+                            var json = JSON.parse(xhr.responseText);
+                            // if last page is reached, increment the size.
+                            this.items =json;
+                        }
+                    }
+                }.bind(this);
+                xhr.open("GET", 'users.json', true);
+                xhr.send();
+            },
+
+            _itemsLoaded: function() {
+              this.fire('items-loaded',{items:this.items});
+            }
+        });
+    </script>
+</dom-module>

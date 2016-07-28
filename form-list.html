@@ -1,0 +1,63 @@
+<!--
+Some header
+-->
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/iron-data-table/iron-data-table.html">
+<link rel="import" href="bower_components/iron-data-table/data-table-column.html">
+<link rel="import" href="bower_components/iron-data-table/data-table-column-sort.html">
+<link rel="import" href="bower_components/iron-data-table/default-styles.html">
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="bower_components/iron-ajax/iron-request.html">
+
+<dom-module id="form-list">
+    <template>
+        <style is="custom-style">
+            #grid1 {
+                --iron-data-table-header: {
+                    z-index: 0;
+                }
+            }
+        </style>
+        <iron-data-table items="[[items]]" style='flex:1;'>
+            <data-table-column name="Full Name (string)" filter-by="name" sort-by="name">
+                <template>[[item.name]]</template>
+            </data-table-column>
+            <data-table-column name="Phone (number)" filter-by="phone" sort-by="phone">
+                <template>[[item.phone]]</template>
+            </data-table-column>
+            <data-table-column name="Is active (boolean)" filter-by="isActive" sort-by="isActive">
+                <template>[[item.isActive]]</template>
+            </data-table-column>
+            <data-table-column name="Registered (datatime)" filter-by="registered" sort-by="registered">
+                <template>[[item.registered]]</template>
+            </data-table-column>
+            <data-table-column name="Email (link)" filter-by="email" sort-by="email">
+                <template>[[item.email]]</template>
+            </data-table-column>
+        </iron-data-table>
+    </template>
+    <script>
+        Polymer({
+            is: 'form-list',
+            properties: {
+                selectedItem: {
+                    type: Array,
+                    observer: '_selectionChanged'
+                },
+                items: {
+                    type: Array,
+                    observer: '_itemsChanged'
+                }
+            },
+            _selectionChanged: function(selectedItem) {
+                this.fire('change-selection');
+            },
+            _itemsChanged:function(data) {
+              //  this.items = data;
+            },
+            setItems: function(data) {
+                this.items = data;
+            }
+        });
+    </script>
+</dom-module>
