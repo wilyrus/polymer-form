@@ -1,0 +1,62 @@
+<!--
+Some header
+-->
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/iron-data-table/default-styles.html">
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<dom-module id="form-form">
+    <template>
+        <style is="custom-style">
+            #grid1 {
+                --iron-data-table-header: {
+                    z-index: 0;
+                }
+            }
+        </style>
+        <div class="container flex-stretch-align">
+            <paper-input label="{{users.0.name}}"></paper-input>
+            <paper-input label="this label floats after typing"></paper-input>
+        </div>
+        <div class="container flex-stretch-align">
+            <paper-input label="this label floats after typing"></paper-input>
+            <paper-input label="this label floats after typing"></paper-input>
+        </div>
+        <div class="container flex-stretch-align">
+            <paper-input label="this label floats after typing"></paper-input>
+            <paper-input label="this label floats after typing"></paper-input>
+        </div>
+        <div class="container flex-stretch-align">
+            <paper-input label="this label floats after typing"></paper-input>
+            <paper-input label="this label floats after typing"></paper-input>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: 'form-form',
+            properties: {
+                selectedItem: {
+                    type: Object,
+                    observer: '_selectionChanged'
+                },
+                items: {
+                    type: Array,
+                    observer: '_itemsChanged'
+                }
+            },
+            _selectionChanged: function(selectedItem) {
+                debugger
+                this.fire('change-selection', {
+                    item: selectedItem
+                });
+            },
+            _itemsChanged: function(data) {
+                //  this.items = data;
+            },
+            setItems: function(data) {
+                this.items = data;
+            }
+        });
+    </script>
+</dom-module>

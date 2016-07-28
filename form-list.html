@@ -6,8 +6,6 @@ Some header
 <link rel="import" href="bower_components/iron-data-table/data-table-column.html">
 <link rel="import" href="bower_components/iron-data-table/data-table-column-sort.html">
 <link rel="import" href="bower_components/iron-data-table/default-styles.html">
-<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="bower_components/iron-ajax/iron-request.html">
 
 <dom-module id="form-list">
     <template>
@@ -18,7 +16,7 @@ Some header
                 }
             }
         </style>
-        <iron-data-table items="[[items]]" style='flex:1;'>
+        <iron-data-table selection-enabled items="[[items]]" selectedItem='[[selected]]' style='flex:1;'>
             <data-table-column name="Full Name (string)" filter-by="name" sort-by="name">
                 <template>[[item.name]]</template>
             </data-table-column>
@@ -41,7 +39,7 @@ Some header
             is: 'form-list',
             properties: {
                 selectedItem: {
-                    type: Array,
+                    type: Object,
                     observer: '_selectionChanged'
                 },
                 items: {
@@ -50,7 +48,8 @@ Some header
                 }
             },
             _selectionChanged: function(selectedItem) {
-                this.fire('change-selection');
+              debugger
+                this.fire('change-selection',{item:selectedItem});
             },
             _itemsChanged:function(data) {
               //  this.items = data;

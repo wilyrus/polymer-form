@@ -1,11 +1,9 @@
 <!--
-
+Some header
 -->
-<link rel="import" href="bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="bower_components/paper-styles/paper-styles.html">
 
 <link rel="import" href="bower_components/paper-button/paper-button.html">
-<link rel="import" href="bower_components/paper-input/paper-input.html">
 <link rel="import" href="bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
@@ -14,8 +12,6 @@
 <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="bower_components/paper-tabs/paper-tab.html">
 
-<link rel="import" href="bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
-<link rel="import" href="bower_components/app-layout/helpers/helpers.html">
 <link rel="import" href="bower_components/app-route/app-location.html">
 <link rel="import" href="bower_components/app-route/app-route.html">
 <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
@@ -25,6 +21,7 @@
 
 <link rel="import" href="form-data.html">
 <link rel="import" href="form-list.html">
+<link rel="import" href="form-form.html">
 
 <dom-module id="initializer-page">
     <app-location route="{{route}}"></app-location>
@@ -72,27 +69,12 @@
                     </paper-tabs>
                 </paper-toolbar>
                 <div class="container flex-stretch-align">
-                    <div class="datalist flex-stretch-vertical" style='flex:1;'>
-                        <form-list id="grid1" items='[[items]]' selected='[[selected]]'></form-list>
-                    </div>
-                    <div class="dataform container flex-stretch-vertical" style='flex:1;'>
-                        <div class="container flex-stretch-align">
-                            <paper-input label="{{users.0.name}}"></paper-input>
-                            <paper-input label="this label floats after typing"></paper-input>
-                        </div>
-                        <div class="container flex-stretch-align">
-                            <paper-input label="this label floats after typing"></paper-input>
-                            <paper-input label="this label floats after typing"></paper-input>
-                        </div>
-                        <div class="container flex-stretch-align">
-                            <paper-input label="this label floats after typing"></paper-input>
-                            <paper-input label="this label floats after typing"></paper-input>
-                        </div>
-                        <div class="container flex-stretch-align">
-                            <paper-input label="this label floats after typing"></paper-input>
-                            <paper-input label="this label floats after typing"></paper-input>
-                        </div>
-                    </div>
+                  <div class="datalist flex-stretch-vertical" style='flex:1;'>
+                      <form-list id="list" items='[[items]]' selected='[[selected]]'></form-list>
+                  </div>
+                  <div class="dataform container flex-stretch-vertical" style='flex:1;'>
+                      <form-form id="form" items='[[items]]' selected='[[selected]]'></form-form>
+                  </div>
                 </div>
             </paper-header-panel>
         </paper-drawer-panel>
@@ -100,7 +82,6 @@
 
     <style>
         /* local DOM styles go here */
-
         :host {
             display: block;
             position: relative;
@@ -147,14 +128,12 @@
             },
 
             _loadDataToList: function(event) {
-                 ugger
                 var items = event.detail.items
                 if (items && items.length > 0) {
-                    this.$.grid1.setItems(items)
+                    this.$.list.setItems(items)
                 }
             },
             _loadDataToForm: function(items) {
-                 ugger
                 //this.$.grid1.setItems(items)
             }
         });
