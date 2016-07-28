@@ -26,7 +26,6 @@ Some header
 <dom-module id="initializer-page">
     <app-location route="{{route}}"></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
-
     <template>
         <style is="custom-style">
             .flex-stretch-align {
@@ -42,6 +41,12 @@ Some header
             .dataform,
             .datalist {
                 @apply(--layout-flex-1);
+            }
+
+            #list {
+                --iron-data-table-header: {
+                    z-index: 0;
+                }
             }
         </style>
         <form-data id="form-data" items="{{items}}" selected="{{selected}}"> </form-data>
@@ -69,12 +74,8 @@ Some header
                     </paper-tabs>
                 </paper-toolbar>
                 <div class="container flex-stretch-align">
-                  <div class="datalist flex-stretch-vertical" style='flex:1;'>
-                      <form-list id="list" items='[[items]]' selected='[[selected]]'></form-list>
-                  </div>
-                  <div class="dataform container flex-stretch-vertical" style='flex:1;'>
-                      <form-form id="form" items='[[items]]' selected='[[selected]]'></form-form>
-                  </div>
+                    <form-list class="datalist flex-stretch-vertical" id="list" items='[[items]]' selected='[[selected]]' selectedItem='[[selected]]' style='flex:1;'></form-list>
+                    <form-form class="dataform container flex-stretch-vertical" id="form" items='[[items]]' selected='[[selected]]' style='flex:1;'></form-form>
                 </div>
             </paper-header-panel>
         </paper-drawer-panel>
@@ -82,6 +83,7 @@ Some header
 
     <style>
         /* local DOM styles go here */
+
         :host {
             display: block;
             position: relative;
@@ -134,7 +136,10 @@ Some header
                 }
             },
             _loadDataToForm: function(items) {
-                //this.$.grid1.setItems(items)
+                var item = event.detail.item
+                if (item) {
+                    this.$.form.setData(item)
+                }
             }
         });
     </script>

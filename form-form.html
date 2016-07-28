@@ -36,26 +36,17 @@ Some header
         Polymer({
             is: 'form-form',
             properties: {
-                selectedItem: {
-                    type: Object,
-                    observer: '_selectionChanged'
-                },
-                items: {
+                formData: {
                     type: Array,
+                    notify: true,
                     observer: '_itemsChanged'
                 }
-            },
-            _selectionChanged: function(selectedItem) {
-                debugger
-                this.fire('change-selection', {
-                    item: selectedItem
-                });
             },
             _itemsChanged: function(data) {
                 //  this.items = data;
             },
-            setItems: function(data) {
-                this.items = data;
+            setData: function(data) {
+                this.formData = data;
             }
         });
     </script>

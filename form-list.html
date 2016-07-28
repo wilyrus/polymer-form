@@ -3,20 +3,11 @@ Some header
 -->
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/iron-data-table/iron-data-table.html">
-<link rel="import" href="bower_components/iron-data-table/data-table-column.html">
-<link rel="import" href="bower_components/iron-data-table/data-table-column-sort.html">
 <link rel="import" href="bower_components/iron-data-table/default-styles.html">
 
 <dom-module id="form-list">
     <template>
-        <style is="custom-style">
-            #grid1 {
-                --iron-data-table-header: {
-                    z-index: 0;
-                }
-            }
-        </style>
-        <iron-data-table selection-enabled items="[[items]]" selectedItem='[[selected]]' style='flex:1;'>
+        <iron-data-table selection-enabled on-selected-items-changed="_selected" items="[[items]]" style='flex:1;'>
             <data-table-column name="Full Name (string)" filter-by="name" sort-by="name">
                 <template>[[item.name]]</template>
             </data-table-column>
@@ -37,25 +28,33 @@ Some header
     <script>
         Polymer({
             is: 'form-list',
+
             properties: {
-                selectedItem: {
-                    type: Object,
-                    observer: '_selectionChanged'
-                },
                 items: {
                     type: Array,
                     observer: '_itemsChanged'
                 }
             },
-            _selectionChanged: function(selectedItem) {
-              debugger
-                this.fire('change-selection',{item:selectedItem});
-            },
-            _itemsChanged:function(data) {
-              //  this.items = data;
-            },
+
             setItems: function(data) {
                 this.items = data;
+            },
+
+            _selected: function(e) {
+                var value = e.detail.value;
+                if (value && value.indexSplices) {
+                    if (value.indexSplices[0]) {
+                        if (value.indexSplices[0].object[0]) {
+                            this.fire('change-selection', {
+                                item: value.indexSplices[0].object[0]
+                            });
+                        }
+                    }
+                }
+            },
+
+            _itemsChanged: function(data) {
+                //  this.items = data;
             }
         });
     </script>
