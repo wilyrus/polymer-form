@@ -1,9 +1,8 @@
 <!--
+*
 Some header
+*
 -->
-<link rel="import" href="bower_components/polymer/polymer.html">
-<link rel="import" href="bower_components/iron-localstorage/iron-localstorage.html">
-
 <dom-module id="form-data">
     <template>
         <iron-localstorage name="form-data" value="{{items}}" on-iron-localstorage-load-empty="_initializeForm"></iron-localstorage>
@@ -35,7 +34,7 @@ Some header
                         }
                     }
                 }.bind(this);
-                xhr.open("GET", 'users.json', true);
+                xhr.open("GET", 'usersData.json', true);
                 xhr.send();
             },
 

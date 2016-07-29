@@ -1,40 +1,31 @@
 <!--
-Some header
+*
+Component - form
+*
 -->
-<link rel="import" href="bower_components/polymer/polymer.html">
-<link rel="import" href="bower_components/iron-data-table/default-styles.html">
-<link rel="import" href="bower_components/paper-input/paper-input.html">
-<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
-
 <dom-module id="form-form">
     <template>
         <style is="custom-style">
-            #grid1 {
-                --iron-data-table-header: {
-                    z-index: 0;
-                }
+            .flex-stretch-horizontal {
+                @apply(--layout-horizontal);
+                height: 100%;
+            }
+
+            .flex-stretch-vertical {
+                @apply(--layout-vertical);
+                height: 100%;
             }
         </style>
-        <div class="container flex-stretch-align">
-            <paper-input label="{{users.0.name}}"></paper-input>
-            <paper-input label="this label floats after typing"></paper-input>
-        </div>
-        <div class="container flex-stretch-align">
-            <paper-input label="this label floats after typing"></paper-input>
-            <paper-input label="this label floats after typing"></paper-input>
-        </div>
-        <div class="container flex-stretch-align">
-            <paper-input label="this label floats after typing"></paper-input>
-            <paper-input label="this label floats after typing"></paper-input>
-        </div>
-        <div class="container flex-stretch-align">
-            <paper-input label="this label floats after typing"></paper-input>
-            <paper-input label="this label floats after typing"></paper-input>
-        </div>
+        <template is="dom-repeat" items="{{formData}}" as='item'>
+            <div class$='{{computeContainerClass(item.layout.align)}}'>
+                <paper-input label="{{item.field.label}}" value="{{item.field.value}}" type={{item.field.type}}></paper-input>
+            </div>
+        </template>
     </template>
     <script>
         Polymer({
             is: 'form-form',
+
             properties: {
                 formData: {
                     type: Array,
@@ -42,9 +33,25 @@ Some header
                     observer: '_itemsChanged'
                 }
             },
+
             _itemsChanged: function(data) {
                 //  this.items = data;
             },
+
+            computeContainerClass: function(align) {
+              debugger
+                switch (align) {
+                    case 'horizontal':
+                        return 'container flex-stretch-horizontal'
+                        break;
+                    case 'vertical':
+                        return 'container flex-stretch-vertical'
+                        break;
+                    default:
+                        'container flex-stretch-horizontal'
+                }
+            },
+
             setData: function(data) {
                 this.formData = data;
             }

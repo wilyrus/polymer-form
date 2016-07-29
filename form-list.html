@@ -1,33 +1,35 @@
 <!--
-Some header
+*
+Component - list
+*
 -->
-<link rel="import" href="bower_components/polymer/polymer.html">
-<link rel="import" href="bower_components/iron-data-table/iron-data-table.html">
-<link rel="import" href="bower_components/iron-data-table/default-styles.html">
-
 <dom-module id="form-list">
     <template>
         <iron-data-table selection-enabled on-selected-items-changed="_selected" items="[[items]]" style='flex:1;'>
-            <data-table-column name="Full Name (string)" filter-by="name" sort-by="name">
-                <template>[[item.name]]</template>
+            <data-table-column name$="{{getItemLabel(item,0)]]" filter-by&="{{getItemValue(item,0)]]" sort-by&="{{getItemValue(item,0)}}">
+                <template>[[getItemValue(item,0)]]</template>
             </data-table-column>
-            <data-table-column name="Phone (number)" filter-by="phone" sort-by="phone">
-                <template>[[item.phone]]</template>
+            <data-table-column name$="{{getItemLabel(item,1)}}" filter-by$="{{getItemValue(item,1)}}" sort-by$="{{getItemValue(item,1)}}">
+                <template>[[getItemValue(item,1)]]</template>
             </data-table-column>
-            <data-table-column name="Is active (boolean)" filter-by="isActive" sort-by="isActive">
-                <template>[[item.isActive]]</template>
+            <data-table-column name$="{{getItemLabel(item,2)}}" filter-by$="{{getItemValue(item,2)}}" sort-by$="{{getItemValue(item,2)}}">
+                <template>[[getItemValue(item,2)]]</template>
             </data-table-column>
-            <data-table-column name="Registered (datatime)" filter-by="registered" sort-by="registered">
-                <template>[[item.registered]]</template>
+            <data-table-column name$="{{getItemLabel(item,3)}}" filter-by$="{{getItemValue(item,3)}}" sort-by$="{{getItemValue(item,3)}}">
+                <template>[[getItemValue(item,3)]]</template>
             </data-table-column>
-            <data-table-column name="Email (link)" filter-by="email" sort-by="email">
-                <template>[[item.email]]</template>
+            <data-table-column name$="{{getItemLabel(item,4)}}" filter-by$="{{getItemValue(item,4)}}" sort-by$="{{getItemValue(item,4)}}">
+                <template>[[getItemValue(item,4)]]</template>
             </data-table-column>
         </iron-data-table>
     </template>
     <script>
         Polymer({
             is: 'form-list',
+
+            behaviors: [
+              Polymer.IronResizableBehavior
+            ],
 
             properties: {
                 items: {
@@ -38,6 +40,18 @@ Some header
 
             setItems: function(data) {
                 this.items = data;
+            },
+
+            getItemLabel: function(item, index) {
+                if (item && item.length > 0) {
+                    return item[index].field.label
+                }
+            },
+
+            getItemValue: function(item, index) {
+                if (item && item.length > 0) {
+                    return item[index].field.value
+                }
             },
 
             _selected: function(e) {
