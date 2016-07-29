@@ -3,9 +3,9 @@
 Some header
 *
 -->
-<dom-module id="form-data">
+<dom-module id='form-data'>
     <template>
-        <iron-localstorage name="form-data" value="{{items}}" on-iron-localstorage-load-empty="_initializeForm"></iron-localstorage>
+        <iron-localstorage name='form-data' value='{{items}}' on-iron-localstorage-load-empty='_initializeForm'></iron-localstorage>
     </template>
     <script>
         Polymer({
@@ -34,7 +34,7 @@ Some header
                         }
                     }
                 }.bind(this);
-                xhr.open("GET", 'usersData.json', true);
+                xhr.open('GET', 'usersData.json', true);
                 xhr.send();
             },
 

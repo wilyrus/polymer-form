@@ -3,23 +3,26 @@
 Component - list
 *
 -->
-<dom-module id="form-list">
+<dom-module id='form-list'>
     <template>
-        <iron-data-table selection-enabled on-selected-items-changed="_selected" items="[[items]]" style='flex:1;'>
-            <data-table-column name$="{{getItemLabel(item,0)]]" filter-by&="{{getItemValue(item,0)]]" sort-by&="{{getItemValue(item,0)}}">
-                <template>[[getItemValue(item,0)]]</template>
-            </data-table-column>
-            <data-table-column name$="{{getItemLabel(item,1)}}" filter-by$="{{getItemValue(item,1)}}" sort-by$="{{getItemValue(item,1)}}">
+        <iron-data-table selection-enabled on-selected-items-changed='_selected' items='[[items]]' style='flex:1;'>
+          <data-table-column name='title' filter-by='title' sort-by='title'>
+              <template>[[getItemValue(item,0)]]</template>
+          </data-table-column>
+            <data-table-column name='isActive' filter-by='isActive' sort-by='isActive'>
                 <template>[[getItemValue(item,1)]]</template>
             </data-table-column>
-            <data-table-column name$="{{getItemLabel(item,2)}}" filter-by$="{{getItemValue(item,2)}}" sort-by$="{{getItemValue(item,2)}}">
+            <data-table-column name='name' filter-by='name' sort-by='name'>
                 <template>[[getItemValue(item,2)]]</template>
             </data-table-column>
-            <data-table-column name$="{{getItemLabel(item,3)}}" filter-by$="{{getItemValue(item,3)}}" sort-by$="{{getItemValue(item,3)}}">
+            <data-table-column name='site' filter-by='site' sort-by='site'>
                 <template>[[getItemValue(item,3)]]</template>
             </data-table-column>
-            <data-table-column name$="{{getItemLabel(item,4)}}" filter-by$="{{getItemValue(item,4)}}" sort-by$="{{getItemValue(item,4)}}">
+            <data-table-column name='phone' filter-by='phone' sort-by='phone'>
                 <template>[[getItemValue(item,4)]]</template>
+            </data-table-column>
+            <data-table-column name='registered' filter-by='registered' sort-by='registered'>
+                <template>[[getItemValue(item,5)]]</template>
             </data-table-column>
         </iron-data-table>
     </template>
@@ -28,7 +31,7 @@ Component - list
             is: 'form-list',
 
             behaviors: [
-              Polymer.IronResizableBehavior
+                Polymer.IronResizableBehavior
             ],
 
             properties: {

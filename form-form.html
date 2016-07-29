@@ -3,9 +3,9 @@
 Component - form
 *
 -->
-<dom-module id="form-form">
+<dom-module id='form-form'>
     <template>
-        <style is="custom-style">
+        <style is='custom-style'>
             .flex-stretch-horizontal {
                 @apply(--layout-horizontal);
                 height: 100%;
@@ -16,10 +16,22 @@ Component - form
                 height: 100%;
             }
         </style>
-        <template is="dom-repeat" items="{{formData}}" as='item'>
-            <div class$='{{computeContainerClass(item.layout.align)}}'>
-                <paper-input label="{{item.field.label}}" value="{{item.field.value}}" type={{item.field.type}}></paper-input>
-            </div>
+        <template is='dom-repeat' items='{{formData}}' as='item'>
+            <template item={{item}} is='dom-if' if='{{isSimpleField(item.field.type)}}'>
+                <paper-input-container style$='{{computeContainerClass(item.layout.align)}}'>
+                    <label>{{item.field.label}}</label>
+                    <input is='iron-input' bind-value='{{item.field.value}}' type={{item.field.type}}>
+                </paper-input-container>
+            </template>
+            <template item={{item}} is='dom-if' if='{{isCheckbox(item.field.type)}}'>
+                <paper-checkbox auto-validate checked='{{item.field.value}}' style$='{{computeContainerClass(item.layout.align)}}'>{{item.field.label}}</paper-checkbox>
+            </template>
+            <template item={{item}} is='dom-if' if='{{isPhone(item.field.type)}}'>
+                <gold-phone-input auto-validate label='{{item.field.label}}' value='{{item.field.value}}' style$='{{computeContainerClass(item.layout.align)}}'></gold-phone-input>
+            </template>
+            <template item={{item}} is='dom-if' if='{{isMail(item.field.type)}}'>
+                <gold-email-input auto-validate label='{{item.field.label}}' value='{{item.field.value}}' style$='{{computeContainerClass(item.layout.align)}}'></gold-email-input>
+            </template>
         </template>
     </template>
     <script>
@@ -39,17 +51,23 @@ Component - form
             },
 
             computeContainerClass: function(align) {
-              debugger
-                switch (align) {
-                    case 'horizontal':
-                        return 'container flex-stretch-horizontal'
-                        break;
-                    case 'vertical':
-                        return 'container flex-stretch-vertical'
-                        break;
-                    default:
-                        'container flex-stretch-horizontal'
-                }
+                return 'flex:' + align.toString() + '%;'
+            },
+
+            isSimpleField: function(type) {
+                return type !=='email' && type !=='tel' && type !=='checkbox'
+            },
+
+            isPhone: function(type) {
+                return type ==='tel'
+            },
+
+            isMail: function(type) {
+                return type ==='email'
+            },
+
+            isCheckbox: function(type) {
+                return type ==='checkbox'
             },
 
             setData: function(data) {

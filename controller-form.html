@@ -8,11 +8,11 @@ Class what encapsulating all form components
 <link rel="import" href="form-list.html">
 <link rel="import" href="form-form.html">
 
-<dom-module id="controller-form">
-    <app-location route="{{route}}"></app-location>
-    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+<dom-module id='controller-form'>
+    <app-location route='{{route}}'></app-location>
+    <app-route route='{{route}}' pattern='/:page' data='{{routeData}}' tail='{{subroute}}'></app-route>
     <template>
-        <style is="custom-style">
+        <style is='custom-style '>
             .flex-stretch-align {
                 @apply(--layout-horizontal);
                 height: 100%;
@@ -33,27 +33,57 @@ Class what encapsulating all form components
                     z-index: 0;
                 }
             }
+
+            #form {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                --paper-input-container: {
+                    padding: 15px;
+                }
+            }
+
+            paper-item {
+                --paper-item: {
+                    cursor: pointer;
+                }
+            }
+
+            .horizontal-section {
+                padding: 0 !important;
+            }
         </style>
-        <form-data id="form-data" items="{{items}}" selected="{{selected}}"></form-data>
+        <form-data id='form-data' items='{{items}}' selected='{{selected}}'></form-data>
         <paper-drawer-panel force-narrow>
             <paper-header-panel drawer>
                 <paper-toolbar>
                     <div>Change your application</div>
                 </paper-toolbar>
-                <div>The application list</div>
+                <div class="horizontal-section">
+                    <paper-listbox>
+                        <paper-item>Item 1</paper-item>
+                        <paper-item>Item 2</paper-item>
+                        <paper-item>Item 3</paper-item>
+                        <paper-item>Item 4</paper-item>
+                        <paper-item>Item 5</paper-item>
+                        <paper-item>Item 6</paper-item>
+                        <paper-item>Item 7</paper-item>
+                        <paper-item>Item 8</paper-item>
+                    </paper-listbox>
+                </div>
             </paper-header-panel>
             <paper-header-panel main>
                 <paper-toolbar>
-                    <paper-icon-button icon="menu" paper-drawer-toggle id='superimp'></paper-icon-button>
-                    <div class="middle title">Title</div>
-                    <div class="spacer"></div>
-                    <paper-icon-button icon="refresh"></paper-icon-button>
-                    <paper-icon-button icon="add">+</paper-icon-button>
-                    <paper-icon-button icon="content-cut"></paper-icon-button>
-                    <paper-icon-button icon="content-copy"></paper-icon-button>
-                    <paper-icon-button icon="content-paste"></paper-icon-button>
-                    <div class="spacer"></div>
-                    <paper-tabs selected="0" scrollable autoselect-delay="300" style="width: 600px;">
+                    <paper-icon-button icon='menu' paper-drawer-toggle id='superimp'></paper-icon-button>
+                    <div class='middle title'>Title</div>
+                    <div class='spacer'></div>
+                    <paper-icon-button icon='refresh'></paper-icon-button>
+                    <paper-icon-button icon='add'>+</paper-icon-button>
+                    <paper-icon-button icon='content-cut'></paper-icon-button>
+                    <paper-icon-button icon='content-copy'></paper-icon-button>
+                    <paper-icon-button icon='content-paste'></paper-icon-button>
+                    <div class='spacer'></div>
+                    <paper-tabs selected='0' scrollable autoselect-delay='300' style='width: 600px;'>
                         <paper-tab>Worckflow Scheme</paper-tab>
                         <paper-tab>Fields</paper-tab>
                         <paper-tab>Form</paper-tab>
@@ -64,9 +94,9 @@ Class what encapsulating all form components
                         <paper-tab>Event triggers</paper-tab>
                     </paper-tabs>
                 </paper-toolbar>
-                <div class="container flex-stretch-align">
-                    <form-list class="datalist flex-stretch-vertical" id="list" items='[[items]]' selected='[[selected]]' selectedItem='[[selected]]' style='flex:1;'></form-list>
-                    <form-form class="dataform container flex-stretch-vertical" id="form" items='[[items]]' selected='[[selected]]' style='flex:1;'></form-form>
+                <div class='container flex-stretch-align'>
+                    <form-list class='datalist flex-stretch-vertical' id='list' items='[[items]]' selected='[[selected]]' selectedItem='[[selected]]' style='flex:1;'></form-list>
+                    <form-form class='dataform container flex-stretch-vertical' id='form' items='[[items]]' selected='[[selected]]' style='flex:1;'></form-form>
                 </div>
             </paper-header-panel>
         </paper-drawer-panel>
@@ -129,8 +159,7 @@ Class what encapsulating all form components
 
             _loadDataToForm: function(items) {
                 var item = event.detail.item
-                debugger
-                if (item) {
+                if (item && item.length > 0) {
                     this.$.form.setData(item)
                 }
             }
