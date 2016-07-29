@@ -38,7 +38,11 @@ Class what encapsulating all form components
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
+                align-content: flex-start;
                 --paper-input-container: {
+                    padding: 15px;
+                }
+                --paper-checkbox: {
                     padding: 15px;
                 }
             }
@@ -53,7 +57,8 @@ Class what encapsulating all form components
                 padding: 0 !important;
             }
         </style>
-        <form-data id='form-data' items='{{items}}' selected='{{selected}}'></form-data>
+        <form-data id='form-data' items='{{items}}'></form-data>
+        <paper-toast id="notifyTost" text="Default text"></paper-toast>
         <paper-drawer-panel force-narrow>
             <paper-header-panel drawer>
                 <paper-toolbar>
@@ -77,11 +82,12 @@ Class what encapsulating all form components
                     <paper-icon-button icon='menu' paper-drawer-toggle id='superimp'></paper-icon-button>
                     <div class='middle title'>Title</div>
                     <div class='spacer'></div>
-                    <paper-icon-button icon='refresh'></paper-icon-button>
-                    <paper-icon-button icon='add'>+</paper-icon-button>
-                    <paper-icon-button icon='content-cut'></paper-icon-button>
-                    <paper-icon-button icon='content-copy'></paper-icon-button>
-                    <paper-icon-button icon='content-paste'></paper-icon-button>
+                    <paper-icon-button on-tap="handleSave" icon='save'></paper-icon-button>
+                    <paper-icon-button on-tap="handleAdd" icon='add'></paper-icon-button>
+                    <paper-icon-button on-tap="handleRemove" icon='remove'></paper-icon-button>
+                    <paper-icon-button on-tap="handleCopy" icon='content-copy'></paper-icon-button>
+                    <paper-icon-button on-tap="handlePaste" icon='content-paste'></paper-icon-button>
+                    <paper-icon-button on-tap="handleRefresh" icon='refresh'></paper-icon-button>
                     <div class='spacer'></div>
                     <paper-tabs selected='0' scrollable autoselect-delay='300' style='width: 600px;'>
                         <paper-tab>Worckflow Scheme</paper-tab>
@@ -101,7 +107,6 @@ Class what encapsulating all form components
             </paper-header-panel>
         </paper-drawer-panel>
     </template>
-
     <style>
         /* local DOM styles go here */
 
@@ -145,9 +150,27 @@ Class what encapsulating all form components
         Polymer({
             is: 'controller-form',
 
+            properties: {
+                selectedItem: {
+                    type: Number
+                },
+                items: {
+                    type: Array,
+                    notify: true,
+                    observer: '_itemsChanged'
+                }
+            },
+
             listeners: {
                 'items-loaded': '_loadDataToList',
                 'change-selection': '_loadDataToForm'
+            },
+
+            handleRemove: function() {
+                this.items.splice(this.selectedItem, 1)
+                var pmn = document.querySelector('#form-data');
+                this.$.notifyTost.text = 'Item removed'
+                this.$.notifyTost.open();
             },
 
             _loadDataToList: function(event) {
@@ -157,13 +180,20 @@ Class what encapsulating all form components
                 }
             },
 
+            handleRefresh: function() {
+                //  this.items.splice(this.selectedItem,1)
+            },
+
             _loadDataToForm: function(items) {
                 var item = event.detail.item
+                this.selectedItem = this.items.indexOf(item);
                 if (item && item.length > 0) {
                     this.$.form.setData(item)
                 }
+            },
+            _itemsChanged: function(event) {
+
             }
         });
     </script>
-
 </dom-module>
