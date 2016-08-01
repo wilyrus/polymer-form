@@ -14,6 +14,4 @@ Install the LTS version (4.x) of Node.js. The current version (6.x) should work,
 
 ### Serve your project
 
-You can serve the application using the Polymer CLI, and file changes you make will be immediately visible by refreshing your browser.
-
 ``` polymer serve --open ```
