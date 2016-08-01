@@ -41,13 +41,12 @@ Component - list
                 },
                 index: {
                     type: Number,
-                    value:0
+                    value: 0
                 }
             },
 
             setItems: function(data) {
                 this.$.formListTable.clearCache()
-                this.items = data;
             },
 
             getItemLabel: function(item, index) {
@@ -62,16 +61,12 @@ Component - list
                 }
             },
 
-            _selected: function(e) {
-                var value = e.detail.value;
-                if (value && value.indexSplices) {
-                    if (value.indexSplices[0]) {
-                        if (value.indexSplices[0].object[0]) {
-                            this.fire('change-selection', {
-                                item: value.indexSplices[0].object[0]
-                            });
-                        }
-                    }
+            _selected: function() {
+                var value = this.$.formListTable.selectedItem
+                if (value && value.length > 0) {
+                    this.fire('change-selection', {
+                        item: value
+                    });
                 }
             }
         });
