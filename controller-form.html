@@ -56,6 +56,23 @@ Class what encapsulating all form components
             .horizontal-section {
                 padding: 0 !important;
             }
+
+            #paperDrawerPanel [main] {
+                text-align: center;
+                background-color: var(--google-grey-100);
+            }
+
+            #paperDrawerPanel [drawer] {
+                border-right: 1px solid var(--google-grey-300);
+            }
+
+            #paperDrawerPanel[right-drawer] [drawer] {
+                border-left: 1px solid var(--google-grey-300);
+            }
+
+            .spacer {
+                @apply(--layout-flex);
+            }
         </style>
         <form-data id='formData' items='{{items}}'></form-data>
         <paper-toast id="notifyTost" text="Default text"></paper-toast>
@@ -107,24 +124,6 @@ Class what encapsulating all form components
             </paper-header-panel>
         </paper-drawer-panel>
     </template>
-    <style>
-        #paperDrawerPanel [main] {
-            text-align: center;
-            background-color: var(--google-grey-100);
-        }
-
-        #paperDrawerPanel [drawer] {
-            border-right: 1px solid var(--google-grey-300);
-        }
-
-        #paperDrawerPanel[right-drawer] [drawer] {
-            border-left: 1px solid var(--google-grey-300);
-        }
-
-        .spacer {
-            @apply(--layout-flex);
-        }
-    </style>
     </template>
     <script>
         Polymer({
