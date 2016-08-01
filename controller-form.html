@@ -57,7 +57,7 @@ Class what encapsulating all form components
                 padding: 0 !important;
             }
         </style>
-        <form-data id='form-data' items='{{items}}'></form-data>
+        <form-data id='formData' items='{{items}}'></form-data>
         <paper-toast id="notifyTost" text="Default text"></paper-toast>
         <paper-drawer-panel force-narrow>
             <paper-header-panel drawer>
@@ -156,8 +156,7 @@ Class what encapsulating all form components
                 },
                 items: {
                     type: Array,
-                    notify: true,
-                    observer: '_itemsChanged'
+                    notify: true
                 }
             },
 
@@ -168,7 +167,7 @@ Class what encapsulating all form components
 
             handleRemove: function() {
                 this.items.splice(this.selectedItem, 1)
-                var pmn = document.querySelector('#form-data');
+                this.$.list.setItems(this.items)
                 this.$.notifyTost.text = 'Item removed'
                 this.$.notifyTost.open();
             },
@@ -184,15 +183,16 @@ Class what encapsulating all form components
                 //  this.items.splice(this.selectedItem,1)
             },
 
+            handleSave: function() {
+                this.$.formData.set('form-data', this.items)
+            },
+
             _loadDataToForm: function(items) {
                 var item = event.detail.item
                 this.selectedItem = this.items.indexOf(item);
                 if (item && item.length > 0) {
                     this.$.form.setData(item)
                 }
-            },
-            _itemsChanged: function(event) {
-
             }
         });
     </script>

@@ -5,24 +5,24 @@ Component - list
 -->
 <dom-module id='form-list'>
     <template>
-        <iron-data-table selection-enabled on-selected-items-changed='_selected' items='[[items]]' style='flex:1;'>
-          <data-table-column name='title' filter-by='title' sort-by='title'>
-              <template>[[getItemValue(item,0)]]</template>
-          </data-table-column>
+        <iron-data-table id='formListTable' selection-enabled on-selected-items-changed='_selected' items='{{items}}' style='flex:1;'>
+            <data-table-column name='[[field.label]]' filter-by='title' sort-by='title'>
+                <template>{{getItemValue(item,0)}}</template>
+            </data-table-column>
             <data-table-column name='isActive' filter-by='isActive' sort-by='isActive'>
-                <template>[[getItemValue(item,1)]]</template>
+                <template>{{getItemValue(item,1)}}</template>
             </data-table-column>
             <data-table-column name='name' filter-by='name' sort-by='name'>
-                <template>[[getItemValue(item,2)]]</template>
+                <template>{{getItemValue(item,2)}}</template>
             </data-table-column>
             <data-table-column name='site' filter-by='site' sort-by='site'>
-                <template>[[getItemValue(item,3)]]</template>
+                <template>{{getItemValue(item,3)}}</template>
             </data-table-column>
             <data-table-column name='phone' filter-by='phone' sort-by='phone'>
-                <template>[[getItemValue(item,4)]]</template>
+                <template>{{getItemValue(item,4)}}</template>
             </data-table-column>
             <data-table-column name='registered' filter-by='registered' sort-by='registered'>
-                <template>[[getItemValue(item,5)]]</template>
+                <template>{{getItemValue(item,5)}}</template>
             </data-table-column>
         </iron-data-table>
     </template>
@@ -37,11 +37,12 @@ Component - list
             properties: {
                 items: {
                     type: Array,
-                    observer: '_itemsChanged'
+                    notify: true
                 }
             },
 
             setItems: function(data) {
+                this.$.formListTable.clearCache()
                 this.items = data;
             },
 
@@ -68,10 +69,6 @@ Component - list
                         }
                     }
                 }
-            },
-
-            _itemsChanged: function(data) {
-                //  this.items = data;
             }
         });
     </script>
