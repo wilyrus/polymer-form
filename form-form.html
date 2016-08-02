@@ -42,11 +42,11 @@ Component - form
             </template>
             <template item={{item}} is='dom-if' if='{{isList(item.field.type)}}'>
                 <paper-dropdown-menu label='{{item.field.label}}'>
-                    <paper-menu class="dropdown-content">
-                        <template is='dom-repeat' items='{{item.field.value}}' as='value'>
-                            <paper-item>{{value}}</paper-item>
+                    <paper-listbox class="dropdown-content">
+                        <template is='dom-repeat' items='{{item.field.values}}'>
+                            <paper-item>{{item.value}}</paper-item>
                         </template>
-                    </paper-menu>
+                    </paper-listbox>
                 </paper-dropdown-menu>
             </template>
         </template>
@@ -57,14 +57,28 @@ Component - form
 
             properties: {
                 formData: {
-                    type: Array,
-                    notify: true,
-                    observer: '_itemsChanged'
+                    type: Array
+                },
+
+                formChanges: {
+                    type: Object,
+                    value: {}
                 }
             },
 
-            _itemsChanged: function(data) {
-                //  this.items = data;
+            observers: [
+                'formDataChanged(formData.*)'
+            ],
+
+            formDataChanged: function(data) {
+                //gaver form changes + some validation
+                var propertyId = this.get(data.path.replace('value', 'id'))
+                if (typeof propertyId === 'string') {
+                    this.formChanges[data.path] = {
+                        id: propertyId,
+                        value: data.value
+                    }
+                }
             },
 
             computeContainerClass: function(flex) {

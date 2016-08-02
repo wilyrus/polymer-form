@@ -8,7 +8,7 @@ Class what encapsulating all form components
 <link rel="import" href="form-list.html">
 <link rel="import" href="form-form.html">
 
-<dom-module id='controller-form'>
+<dom-module id='mediator-form'>
     <app-location route='{{route}}'></app-location>
     <app-route route='{{route}}' pattern='/:page' data='{{routeData}}' tail='{{subroute}}'></app-route>
     <template>
@@ -26,6 +26,7 @@ Class what encapsulating all form components
             .dataform,
             .datalist {
                 @apply(--layout-flex-1);
+                flex: 1;
             }
 
             #list {
@@ -100,7 +101,6 @@ Class what encapsulating all form components
                     <paper-icon-button on-tap="handleRemove" icon='remove'></paper-icon-button>
                     <paper-icon-button on-tap="handleCopy" icon='content-copy'></paper-icon-button>
                     <paper-icon-button on-tap="handlePaste" icon='content-paste'></paper-icon-button>
-                    <paper-icon-button on-tap="handleRefresh" icon='refresh'></paper-icon-button>
                     <div class='spacer'></div>
                     <paper-tabs selected='0' scrollable autoselect-delay='300' style='width: 600px;'>
                         <paper-tab>Worckflow Scheme</paper-tab>
@@ -114,8 +114,8 @@ Class what encapsulating all form components
                     </paper-tabs>
                 </paper-toolbar>
                 <div class='container flex-stretch-align'>
-                    <form-list class='datalist flex-stretch-vertical' id='list' items='[[items]]' selected='[[selected]]' selectedItem='[[selected]]' style='flex:1;'></form-list>
-                    <form-form class='dataform container flex-stretch-vertical' id='form' items='[[items]]' selected='[[selected]]' style='flex:1;'></form-form>
+                    <form-list class='datalist flex-stretch-vertical' id='list' items='[[items]]'></form-list>
+                    <form-form class='dataform container flex-stretch-vertical' id='form' items='[[items]]'></form-form>
                 </div>
             </paper-header-panel>
         </paper-drawer-panel>
@@ -123,7 +123,7 @@ Class what encapsulating all form components
     </template>
     <script>
         Polymer({
-            is: 'controller-form',
+            is: 'mediator-form',
 
             properties: {
                 selectedItem: {
@@ -132,34 +132,35 @@ Class what encapsulating all form components
                 items: {
                     type: Array,
                     notify: true
-                }
+                },
             },
 
             listeners: {
-                'items-loaded': '_loadDataToList',
                 'change-selection': '_loadDataToForm'
             },
 
+            observers: [
+                'itemsAddedOrRemoved(items.splices)'
+            ],
+
             handleRemove: function() {
-                this.items.splice(this.selectedItem, 1)
-                this.$.list.setItems(this.items)
+                this.splice('items', this.selectedItem, 1)
+                this.$.list.deselectListItem()
+                this.$.list.updateFormList()
                 this.$.notifyTost.text = 'Item removed'
                 this.$.notifyTost.open();
             },
 
-            _loadDataToList: function(event) {
-                var items = event.detail.items
-                if (items && items.length > 0) {
-                    this.$.list.setItems(items)
-                }
-            },
-
-            handleRefresh: function() {
-                //  this.items.splice(this.selectedItem,1)
-            },
-
             handleSave: function() {
-                this.$.formData.set('form-data', this.items)
+                var changes = this.$.form.formChanges
+                for (variable in changes) {
+                    this.set('items.#' + this.selectedItem + variable.replace('formData', ''), changes[variable].value)
+                }
+                this.$.list.updateFormList()
+            },
+
+            itemsAddedOrRemoved: function(data) {
+                //some collection change evnt. verify on deletion or addition
             },
 
             _loadDataToForm: function(event) {
