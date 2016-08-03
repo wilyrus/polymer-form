@@ -3,7 +3,7 @@
 Component - list
 *
 -->
-<dom-module id='form-list'>
+<dom-module id='v-list'>
     <template>
         <iron-data-table id='formListTable' selection-enabled on-selected-items-changed='_selected' items='{{items}}' style='flex:1;'>
             <data-table-column name='[[getItemLabel(items,0)]]' filter-by='field.value' sort-by='field.value'>
@@ -28,7 +28,7 @@ Component - list
     </template>
     <script>
         Polymer({
-            is: 'form-list',
+            is: 'v-list',
 
             behaviors: [
                 Polymer.IronResizableBehavior

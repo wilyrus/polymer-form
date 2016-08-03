@@ -1,14 +1,14 @@
 <!--
 *
-Class what encapsulating all form components
+Implements the Mediator interface
 *
 -->
-<link rel="import" href="facade-form.html">
-<link rel="import" href="form-data.html">
-<link rel="import" href="form-list.html">
-<link rel="import" href="form-form.html">
+<link rel="import" href="../GlobalDependencies.html">
+<link rel="import" href="MModel.html">
+<link rel="import" href="VList.html">
+<link rel="import" href="VForm.html">
 
-<dom-module id='mediator-form'>
+<dom-module id='concrete-mediator'>
     <app-location route='{{route}}'></app-location>
     <app-route route='{{route}}' pattern='/:page' data='{{routeData}}' tail='{{subroute}}'></app-route>
     <template>
@@ -71,7 +71,7 @@ Class what encapsulating all form components
                 @apply(--layout-flex);
             }
         </style>
-        <form-data id='formData' items='{{items}}'></form-data>
+        <m-model id='formData' items='{{items}}'></m-model>
         <paper-toast id="notifyTost" text="Default text"></paper-toast>
         <paper-drawer-panel force-narrow>
             <paper-header-panel drawer>
@@ -114,8 +114,8 @@ Class what encapsulating all form components
                     </paper-tabs>
                 </paper-toolbar>
                 <div class='container flex-stretch-align'>
-                    <form-list class='datalist flex-stretch-vertical' id='list' items='[[items]]'></form-list>
-                    <form-form class='dataform container flex-stretch-vertical' id='form' items='[[items]]'></form-form>
+                    <v-list class='datalist flex-stretch-vertical' id='list' items='[[items]]'></v-list>
+                    <v-form class='dataform container flex-stretch-vertical' id='form' items='[[items]]'></v-form>
                 </div>
             </paper-header-panel>
         </paper-drawer-panel>
@@ -123,7 +123,7 @@ Class what encapsulating all form components
     </template>
     <script>
         Polymer({
-            is: 'mediator-form',
+            is: 'concrete-mediator',
 
             properties: {
                 selectedItem: {

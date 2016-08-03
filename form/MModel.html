@@ -3,13 +3,13 @@
 Some header
 *
 -->
-<dom-module id='form-data'>
+<dom-module id='m-model'>
     <template>
         <iron-localstorage name='form-data' value='{{items}}' on-iron-localstorage-load-empty='_initializeForm'></iron-localstorage>
     </template>
     <script>
         Polymer({
-            is: 'form-data',
+            is: 'm-model',
             properties: {
                 items: {
                     type: Array,
@@ -25,12 +25,11 @@ Some header
                     if (xhr.readyState == XMLHttpRequest.DONE) {
                         if (xhr.status == 200) {
                             var json = JSON.parse(xhr.responseText);
-                            // if last page is reached, increment the size.
                             this.items = json;
                         }
                     }
                 }.bind(this);
-                xhr.open('GET', 'usersData.json', true);
+                xhr.open('GET', './form/usersData.json', true);
                 xhr.send();
             },
 
