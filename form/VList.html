@@ -53,27 +53,27 @@ Component - list
             },
 
             updateFormList: function() {
-                this.$.formListTable.clearCache()
+                this.$.formListTable.clearCache();
             },
 
             deselectListItem: function() {
-                this.$.formListTable.clearSelection()
+                this.$.formListTable.clearSelection();
             },
 
             getItemLabel: function(item, index) {
                 if (item && item.length > 0) {
-                    return item[0][index].label
+                    return item[0][index].label;
                 }
             },
 
             getItemValue: function(item, index) {
                 if (item && item.length > 0) {
-                    return item[index].value
+                    return item[index].value;
                 }
             },
 
             _selected: function() {
-                var value = this.$.formListTable.selectedItem
+                var value = this.$.formListTable.selectedItem;
                 if (value && value.length > 0) {
                     this.fire('change-selection', {
                         item: value
