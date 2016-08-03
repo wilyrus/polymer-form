@@ -14,9 +14,6 @@ Component - form
             <paper-icon-button icon='menu' on-tap="toggleDrawer" id='superimp'></paper-icon-button>
             <div class='title'>Title</div>
             <div class='spacer'></div>
-            <template is='dom-repeat' items='{{items}}'>
-                <div class='title'>{{getItem(item)}}</div>
-            </template>
             <paper-icon-button on-tap="handleSave" icon='save'></paper-icon-button>
             <paper-icon-button on-tap="handleAdd" icon='add'></paper-icon-button>
             <paper-icon-button on-tap="handleRemove" icon='remove'></paper-icon-button>
@@ -25,18 +22,11 @@ Component - form
             <paper-icon-button on-tap="handleUndo" icon='undo'></paper-icon-button>
             <paper-icon-button on-tap="handleRedo" icon='redo'></paper-icon-button>
             <div class='spacer'></div>
-            <div selected='0' scrollable autoselect-delay='300' style='width: 600px;'>
+            <paper-tabs selected='0' scrollable autoselect-delay='300' style='width: 600px;'>
                 <template is='dom-repeat' items='{{items}}' as='item'>
-                    <div>{{item.name}}</div>
+                    <paper-tab>{{item.name}}</paper-tab>
                 </template>
-                <div>Fields</div>
-                <!-- <paper-tab>Form</paper-tab>
-                <paper-tab>Security</paper-tab>
-                <paper-tab>E-mail Notifications</paper-tab>
-                <paper-tab>Export Settings</paper-tab>
-                <paper-tab>CSV Import</paper-tab>
-                <paper-tab>Event triggers</paper-tab> -->
-            </div>
+            </paper-tabs>
         </paper-toolbar>
     </template>
     <script>
@@ -50,39 +40,35 @@ Component - form
             },
 
             handleSave: function(event) {
-                this.fire('handle-save')
+                this.fire('handle-save');
             },
 
             handleRemove: function(event) {
-                this.fire('handle-remove')
+                this.fire('handle-remove');
             },
 
             handleAdd: function(event) {
-                //  this.fire('handle-save')
+                //  this.fire('handle-save');
             },
 
             handleCopy: function(event) {
-                //  this.fire('handle-save')
+                //  this.fire('handle-save');
             },
 
             handlePaste: function(event) {
-                //  this.fire('handle-remove')
+                //  this.fire('handle-remove');
             },
 
             handleUndo: function(event) {
-                //  this.fire('handle-save')
+                //  this.fire('handle-save');
             },
 
             handleRedo: function(event) {
-                //  this.fire('handle-remove')
+                //  this.fire('handle-remove');
             },
 
             toggleDrawer: function() {
-                this.fire('toggle-drawer')
-            },
-
-            getItem: function() {
-              debugger;
+                this.fire('toggle-drawer');
             }
         });
     </script>
