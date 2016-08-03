@@ -7,6 +7,8 @@ Implements the Mediator interface
 <link rel="import" href="MModel.html">
 <link rel="import" href="VList.html">
 <link rel="import" href="VForm.html">
+<link rel="import" href="VNavigation.html">
+<link rel="import" href="VToolbar.html">
 
 <dom-module id='concrete-mediator'>
     <app-location route='{{route}}'></app-location>
@@ -29,9 +31,9 @@ Implements the Mediator interface
                 flex: 1;
             }
 
-            #list {
-                --iron-data-table-header: {
-                    z-index: 0;
+            paper-item {
+                --paper-item: {
+                    cursor: pointer;
                 }
             }
 
@@ -40,79 +42,21 @@ Implements the Mediator interface
                 flex-direction: row;
                 flex-wrap: wrap;
                 align-content: flex-start;
-                --paper-input-container: {
-                    padding: 15px;
-                }
-                --paper-checkbox: {
-                    padding: 15px;
-                }
-            }
-
-            paper-item {
-                --paper-item: {
-                    cursor: pointer;
-                }
             }
 
             #paperDrawerPanel [main] {
                 text-align: center;
                 background-color: var(--google-grey-100);
             }
-
-            #paperDrawerPanel [drawer] {
-                border-right: 1px solid var(--google-grey-300);
-            }
-
-            #paperDrawerPanel[right-drawer] [drawer] {
-                border-left: 1px solid var(--google-grey-300);
-            }
-
-            .spacer {
-                @apply(--layout-flex);
-            }
         </style>
         <m-model id='formData' items='{{items}}'></m-model>
         <paper-toast id="notifyTost" text="Default text"></paper-toast>
-        <paper-drawer-panel force-narrow>
+        <paper-drawer-panel id="appDrawer" force-narrow>
             <paper-header-panel drawer>
-                <paper-toolbar>
-                    <div>Change your application</div>
-                </paper-toolbar>
-                <div class="horizontal-section">
-                    <paper-listbox>
-                        <paper-item>Item 1</paper-item>
-                        <paper-item>Item 2</paper-item>
-                        <paper-item>Item 3</paper-item>
-                        <paper-item>Item 4</paper-item>
-                        <paper-item>Item 5</paper-item>
-                        <paper-item>Item 6</paper-item>
-                        <paper-item>Item 7</paper-item>
-                        <paper-item>Item 8</paper-item>
-                    </paper-listbox>
-                </div>
+                <v-navigation></v-navigation>
             </paper-header-panel>
             <paper-header-panel main>
-                <paper-toolbar>
-                    <paper-icon-button icon='menu' paper-drawer-toggle id='superimp'></paper-icon-button>
-                    <div class='middle title'>Title</div>
-                    <div class='spacer'></div>
-                    <paper-icon-button on-tap="handleSave" icon='save'></paper-icon-button>
-                    <paper-icon-button on-tap="handleAdd" icon='add'></paper-icon-button>
-                    <paper-icon-button on-tap="handleRemove" icon='remove'></paper-icon-button>
-                    <paper-icon-button on-tap="handleCopy" icon='content-copy'></paper-icon-button>
-                    <paper-icon-button on-tap="handlePaste" icon='content-paste'></paper-icon-button>
-                    <div class='spacer'></div>
-                    <paper-tabs selected='0' scrollable autoselect-delay='300' style='width: 600px;'>
-                        <paper-tab>Worckflow Scheme</paper-tab>
-                        <paper-tab>Fields</paper-tab>
-                        <paper-tab>Form</paper-tab>
-                        <paper-tab>Security</paper-tab>
-                        <paper-tab>E-mail Notifications</paper-tab>
-                        <paper-tab>Export Settings</paper-tab>
-                        <paper-tab>CSV Import</paper-tab>
-                        <paper-tab>Event triggers</paper-tab>
-                    </paper-tabs>
-                </paper-toolbar>
+                <v-toolbar></v-toolbar>
                 <div class='container flex-stretch-align'>
                     <v-list class='datalist flex-stretch-vertical' id='list' items='[[items]]'></v-list>
                     <v-form class='dataform container flex-stretch-vertical' id='form' items='[[items]]'></v-form>
@@ -136,7 +80,10 @@ Implements the Mediator interface
             },
 
             listeners: {
-                'change-selection': '_loadDataToForm'
+                'change-selection': '_loadDataToForm',
+                'handle-save': 'handleSave',
+                'handle-remove': 'handleRemove',
+                'toggle-drawer': 'toggleDrawer'
             },
 
             observers: [
@@ -157,6 +104,10 @@ Implements the Mediator interface
                     this.set('items.#' + this.selectedItem + variable.replace('formData', ''), changes[variable].value)
                 }
                 this.$.list.updateFormList()
+            },
+
+            toggleDrawer: function() {
+                this.$.appDrawer.togglePanel()
             },
 
             itemsAddedOrRemoved: function(data) {

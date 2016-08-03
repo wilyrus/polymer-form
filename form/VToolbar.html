@@ -1,0 +1,78 @@
+<!--
+*
+Component - form
+*
+-->
+<dom-module id='v-toolbar'>
+    <template>
+        <style is='custom-style'>
+            .spacer {
+                @apply(--layout-flex);
+            }
+        </style>
+        <paper-toolbar>
+            <paper-icon-button icon='menu' on-tap="toggleDrawer" id='superimp'></paper-icon-button>
+            <div class='title'>Title</div>
+            <div class='spacer'></div>
+            <paper-icon-button on-tap="handleSave" icon='save'></paper-icon-button>
+            <paper-icon-button on-tap="handleAdd" icon='add'></paper-icon-button>
+            <paper-icon-button on-tap="handleRemove" icon='remove'></paper-icon-button>
+            <paper-icon-button on-tap="handleCopy" icon='content-copy'></paper-icon-button>
+            <paper-icon-button on-tap="handlePaste" icon='content-paste'></paper-icon-button>
+            <paper-icon-button on-tap="handleUndo" icon='undo'></paper-icon-button>
+            <paper-icon-button on-tap="handleRedo" icon='redo'></paper-icon-button>
+            <div class='spacer'></div>
+            <paper-tabs selected='0' scrollable autoselect-delay='300' style='width: 600px;'>
+                <paper-tab>Worckflow Scheme</paper-tab>
+                <paper-tab>Fields</paper-tab>
+                <paper-tab>Form</paper-tab>
+                <paper-tab>Security</paper-tab>
+                <paper-tab>E-mail Notifications</paper-tab>
+                <paper-tab>Export Settings</paper-tab>
+                <paper-tab>CSV Import</paper-tab>
+                <paper-tab>Event triggers</paper-tab>
+            </paper-tabs>
+        </paper-toolbar>
+    </template>
+    <script>
+        Polymer({
+            is: 'v-toolbar',
+
+            properties: {
+
+            },
+
+            handleSave: function(event) {
+                this.fire('handle-save')
+            },
+
+            handleRemove: function(event) {
+                this.fire('handle-remove')
+            },
+
+            handleAdd: function(event) {
+                //  this.fire('handle-save')
+            },
+
+            handleCopy: function(event) {
+                //  this.fire('handle-save')
+            },
+
+            handlePaste: function(event) {
+                //  this.fire('handle-remove')
+            },
+
+            handleUndo: function(event) {
+                //  this.fire('handle-save')
+            },
+
+            handleRedo: function(event) {
+                //  this.fire('handle-remove')
+            },
+
+            toggleDrawer: function() {
+                this.fire('toggle-drawer')
+            }
+        });
+    </script>
+</dom-module>

@@ -5,6 +5,13 @@ Component - list
 -->
 <dom-module id='v-list'>
     <template>
+        <style is='custom-style'>
+            #formListTable {
+                --iron-data-table-header: {
+                    z-index: 0;
+                }
+            }
+        </style>
         <iron-data-table id='formListTable' selection-enabled on-selected-items-changed='_selected' items='{{items}}' style='flex:1;'>
             <data-table-column name='[[getItemLabel(items,0)]]' filter-by='value' sort-by='value'>
                 <template>[[getItemValue(item,0)]]</template>

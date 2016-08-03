@@ -1,0 +1,42 @@
+<!--
+*
+Component - form
+*
+-->
+<dom-module id='v-navigation'>
+    <template>
+        <style is='custom-style'>
+            #paperDrawerPanel [drawer] {
+                border-right: 1px solid var(--google-grey-300);
+            }
+        </style>
+        <paper-toolbar>
+            <div>Change your application</div>
+        </paper-toolbar>
+        <div class="horizontal-section">
+            <paper-listbox>
+                <paper-item>Item 1</paper-item>
+                <paper-item>Item 2</paper-item>
+                <paper-item>Item 3</paper-item>
+                <paper-item>Item 4</paper-item>
+                <paper-item>Item 5</paper-item>
+                <paper-item>Item 6</paper-item>
+                <paper-item>Item 7</paper-item>
+                <paper-item>Item 8</paper-item>
+            </paper-listbox>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: 'v-navigation',
+
+            properties: {
+
+            },
+
+            observers: [
+
+            ]
+        });
+    </script>
+</dom-module>

@@ -21,7 +21,14 @@ Component - form
                 align-items: flex-end;
                 align-content: center;
                 justify-content: center;
+                padding: 15px;
                 margin-bottom: 15px;
+            }
+
+            #v-form {
+                --paper-input-container: {
+                    padding: 15px;
+                }
             }
         </style>
         <template is='dom-repeat' items='{{formData}}' as='item'>
