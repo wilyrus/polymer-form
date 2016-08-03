@@ -16,7 +16,7 @@ Component - form
                 height: 100%;
             }
 
-            #checkbox {
+            paper-checkbox {
                 display: flex;
                 align-items: flex-end;
                 align-content: center;
@@ -25,10 +25,8 @@ Component - form
                 margin-bottom: 15px;
             }
 
-            #v-form {
-                --paper-input-container: {
-                    padding: 15px;
-                }
+            paper-input-container, paper-dropdown-menu {
+                padding: 15px;
             }
         </style>
         <template is='dom-repeat' items='{{formData}}' as='item'>
@@ -39,7 +37,7 @@ Component - form
                 </paper-input-container>
             </template>
             <template item={{item}} is='dom-if' if='{{isCheckbox(item.type)}}'>
-                <paper-checkbox id='checkbox' auto-validate checked='{{item.value}}' style$='{{computeContainerClass(item.flex)}}'>{{item.label}}</paper-checkbox>
+                <paper-checkbox auto-validate checked='{{item.value}}' style$='{{computeContainerClass(item.flex)}}'>{{item.label}}</paper-checkbox>
             </template>
             <template item={{item}} is='dom-if' if='{{isPhone(item.type)}}'>
                 <gold-phone-input auto-validate label='{{item.label}}' value='{{item.value}}' style$='{{computeContainerClass(item.flex)}}'></gold-phone-input>

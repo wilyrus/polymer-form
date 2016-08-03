@@ -11,8 +11,6 @@ Implements the Mediator interface
 <link rel="import" href="VToolbar.html">
 
 <dom-module id='concrete-mediator'>
-    <app-location route='{{route}}'></app-location>
-    <app-route route='{{route}}' pattern='/:page' data='{{routeData}}' tail='{{subroute}}'></app-route>
     <template>
         <style is='custom-style'>
             .flex-stretch-align {
@@ -29,12 +27,6 @@ Implements the Mediator interface
             .datalist {
                 @apply(--layout-flex-1);
                 flex: 1;
-            }
-
-            paper-item {
-                --paper-item: {
-                    cursor: pointer;
-                }
             }
 
             #form {
@@ -59,7 +51,7 @@ Implements the Mediator interface
                 <v-toolbar></v-toolbar>
                 <div class='container flex-stretch-align'>
                     <v-list class='datalist flex-stretch-vertical' id='list' items='[[items]]'></v-list>
-                    <v-form class='dataform container flex-stretch-vertical' id='form' items='[[items]]'></v-form>
+                    <v-form class='dataform container flex-stretch-vertical' id='form'></v-form>
                 </div>
             </paper-header-panel>
         </paper-drawer-panel>
@@ -100,10 +92,11 @@ Implements the Mediator interface
 
             handleSave: function() {
                 var changes = this.$.form.formChanges
-                for (variable in changes) {
-                    this.set('items.#' + this.selectedItem + variable.replace('formData', ''), changes[variable].value)
+                for (change in changes) {
+                    this.set('items.#' + this.selectedItem + change.replace('formData', ''), changes[change].value)
                 }
                 this.$.list.updateFormList()
+                this.$.form.formChanges = {}
             },
 
             toggleDrawer: function() {
