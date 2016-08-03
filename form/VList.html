@@ -6,7 +6,7 @@ Component - list
 <dom-module id='v-list'>
     <template>
         <iron-data-table id='formListTable' selection-enabled on-selected-items-changed='_selected' items='{{items}}' style='flex:1;'>
-            <data-table-column name='[[getItemLabel(items,0)]]' filter-by='field.value' sort-by='field.value'>
+            <data-table-column name='[[getItemLabel(items,0)]]' filter-by='value' sort-by='value'>
                 <template>[[getItemValue(item,0)]]</template>
             </data-table-column>
             <data-table-column name='[[getItemLabel(items,1)]]' filter-by='isActive' sort-by='isActive'>
@@ -55,13 +55,13 @@ Component - list
 
             getItemLabel: function(item, index) {
                 if (item && item.length > 0) {
-                    return item[0][index].field.label
+                    return item[0][index].label
                 }
             },
 
             getItemValue: function(item, index) {
                 if (item && item.length > 0) {
-                    return item[index].field.value
+                    return item[index].value
                 }
             },
 

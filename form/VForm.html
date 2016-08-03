@@ -25,25 +25,25 @@ Component - form
             }
         </style>
         <template is='dom-repeat' items='{{formData}}' as='item'>
-            <template item={{item}} is='dom-if' if='{{isSimpleField(item.field.type)}}'>
-                <paper-input-container style$='{{computeContainerClass(item.layout.flex)}}'>
-                    <label>{{item.field.label}}</label>
-                    <input is='iron-input' bind-value='{{item.field.value}}' type={{item.field.type}}>
+            <template item={{item}} is='dom-if' if='{{isSimpleField(item.type)}}'>
+                <paper-input-container style$='{{computeContainerClass(item.flex)}}'>
+                    <label>{{item.label}}</label>
+                    <input is='iron-input' bind-value='{{item.value}}' type={{item.type}}>
                 </paper-input-container>
             </template>
-            <template item={{item}} is='dom-if' if='{{isCheckbox(item.field.type)}}'>
-                <paper-checkbox id='checkbox' auto-validate checked='{{item.field.value}}' style$='{{computeContainerClass(item.layout.flex)}}'>{{item.field.label}}</paper-checkbox>
+            <template item={{item}} is='dom-if' if='{{isCheckbox(item.type)}}'>
+                <paper-checkbox id='checkbox' auto-validate checked='{{item.value}}' style$='{{computeContainerClass(item.flex)}}'>{{item.label}}</paper-checkbox>
             </template>
-            <template item={{item}} is='dom-if' if='{{isPhone(item.field.type)}}'>
-                <gold-phone-input auto-validate label='{{item.field.label}}' value='{{item.field.value}}' style$='{{computeContainerClass(item.layout.flex)}}'></gold-phone-input>
+            <template item={{item}} is='dom-if' if='{{isPhone(item.type)}}'>
+                <gold-phone-input auto-validate label='{{item.label}}' value='{{item.value}}' style$='{{computeContainerClass(item.flex)}}'></gold-phone-input>
             </template>
-            <template item={{item}} is='dom-if' if='{{isMail(item.field.type)}}'>
-                <gold-email-input auto-validate label='{{item.field.label}}' value='{{item.field.value}}' style$='{{computeContainerClass(item.layout.flex)}}'></gold-email-input>
+            <template item={{item}} is='dom-if' if='{{isMail(item.type)}}'>
+                <gold-email-input auto-validate label='{{item.label}}' value='{{item.value}}' style$='{{computeContainerClass(item.flex)}}'></gold-email-input>
             </template>
-            <template item={{item}} is='dom-if' if='{{isList(item.field.type)}}'>
-                <paper-dropdown-menu label='{{item.field.label}}'>
+            <template item={{item}} is='dom-if' if='{{isList(item.type)}}'>
+                <paper-dropdown-menu label='{{item.label}}'>
                     <paper-listbox class="dropdown-content">
-                        <template is='dom-repeat' items='{{item.field.values}}'>
+                        <template is='dom-repeat' items='{{item.values}}'>
                             <paper-item>{{item.value}}</paper-item>
                         </template>
                     </paper-listbox>
