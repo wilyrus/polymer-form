@@ -11,7 +11,7 @@ Component - form
             }
         </style>
         <paper-toolbar>
-            <paper-icon-button icon='menu' on-tap="toggleDrawer" id='superimp'></paper-icon-button>
+            <paper-icon-button icon='menu' on-tap="toggleDrawer"></paper-icon-button>
             <div class='title'>Title</div>
             <div class='spacer'></div>
             <template is='dom-repeat' items='{{items.icons}}' as='item'>
@@ -30,6 +30,10 @@ Component - form
             is: 'v-toolbar',
 
             properties: {
+                activeView: {
+                    type: String,
+                    notify: true
+                },
                 items: {
                     type: Object
                 }

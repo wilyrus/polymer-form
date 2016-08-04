@@ -48,8 +48,8 @@ Implements the Mediator interface
                 <v-navigation items='{{items.navigationBar}}'></v-navigation>
             </paper-header-panel>
             <paper-header-panel main>
-                <v-toolbar items='{{items.toolbar}}'></v-toolbar>
-                <div class='container flex-stretch-align'>
+                <v-toolbar activeView='{{activeView}}' items='{{items.toolbar}}'></v-toolbar>
+                <div class='container flex-stretch-align' id='formContainer' hidden$="{{checkActiveView('form')}}">
                     <v-list class='datalist flex-stretch-vertical' id='list' items='[[items.table]]'></v-list>
                     <v-form class='dataform container flex-stretch-vertical' id='form'></v-form>
                 </div>
@@ -69,6 +69,11 @@ Implements the Mediator interface
                     type: Array,
                     notify: true
                 },
+                activeView: {
+                    type: String,
+                    notify: true,
+                    value: 'form'
+                }
             },
 
             listeners: {
@@ -79,7 +84,8 @@ Implements the Mediator interface
             },
 
             observers: [
-                'itemsAddedOrRemoved(items.splices)'
+                'itemsAddedOrRemoved(items.splices)',
+                'activeViewChanged()'
             ],
 
             handleRemove: function() {
@@ -112,6 +118,21 @@ Implements the Mediator interface
                 this.selectedItem = this.items.table.indexOf(item);
                 if (item && item.length > 0) {
                     this.$.form.setData(item);
+                }
+            },
+
+            checkActiveView: function(requestedView) {
+                return this.activeView === requestedView;
+            },
+
+            activeViewChanged: function() {
+                var currentActiveView = this.activeView;
+                switch (currentActiveView) {
+                    case 'form':
+                        this.$.formContainer.hidden = false;
+                        break;
+                    default:
+                        this.$.formContainer.hidden = false;
                 }
             }
         });
