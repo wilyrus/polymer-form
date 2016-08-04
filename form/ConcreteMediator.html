@@ -45,12 +45,12 @@ Implements the Mediator interface
         <paper-toast id="notifyTost" text="Default text"></paper-toast>
         <paper-drawer-panel id="appDrawer" force-narrow>
             <paper-header-panel drawer>
-                <v-navigation></v-navigation>
+                <v-navigation items='{{items.navigationBar}}'></v-navigation>
             </paper-header-panel>
             <paper-header-panel main>
-                <v-toolbar activeView='{{activeView}}'></v-toolbar>
+                <v-toolbar activeView='{{activeView}}' items='{{items.toolbar}}'></v-toolbar>
                 <div class='container flex-stretch-align' id='formContainer' hidden$="{{checkActiveView('form')}}">
-                    <v-list class='datalist flex-stretch-vertical' id='list' items='[[items]]'></v-list>
+                    <v-list class='datalist flex-stretch-vertical' id='list' items='[[items.table]]'></v-list>
                     <v-form class='dataform container flex-stretch-vertical' id='form'></v-form>
                 </div>
             </paper-header-panel>
@@ -89,24 +89,24 @@ Implements the Mediator interface
             ],
 
             handleRemove: function() {
-                this.splice('items', this.selectedItem, 1)
-                this.$.list.deselectListItem()
-                this.$.list.updateFormList()
-                this.$.notifyTost.text = 'Item removed'
+                this.splice('items', this.selectedItem, 1);
+                this.$.list.deselectListItem();
+                this.$.list.updateFormList();
+                this.$.notifyTost.text = 'Item removed';
                 this.$.notifyTost.open();
             },
 
             handleSave: function() {
-                var changes = this.$.form.formChanges
+                var changes = this.$.form.formChanges;
                 for (change in changes) {
-                    this.set('items.#' + this.selectedItem + change.replace('formData', ''), changes[change].value)
+                    this.set('items.#' + this.selectedItem + change.replace('formData', ''), changes[change].value);
                 }
-                this.$.list.updateFormList()
-                this.$.form.formChanges = {}
+                this.$.list.updateFormList();
+                this.$.form.formChanges = {};
             },
 
             toggleDrawer: function() {
-                this.$.appDrawer.togglePanel()
+                this.$.appDrawer.togglePanel();
             },
 
             itemsAddedOrRemoved: function(data) {
@@ -114,10 +114,10 @@ Implements the Mediator interface
             },
 
             _loadDataToForm: function(event) {
-                var item = event.detail.item
-                this.selectedItem = this.items.indexOf(item);
+                var item = event.detail.item;
+                this.selectedItem = this.items.table.indexOf(item);
                 if (item && item.length > 0) {
-                    this.$.form.setData(item)
+                    this.$.form.setData(item);
                 }
             },
 

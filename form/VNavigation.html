@@ -21,14 +21,9 @@ Component - form
         </paper-toolbar>
         <div class="horizontal-section">
             <paper-listbox>
-                <paper-item>Item 1</paper-item>
-                <paper-item>Item 2</paper-item>
-                <paper-item>Item 3</paper-item>
-                <paper-item>Item 4</paper-item>
-                <paper-item>Item 5</paper-item>
-                <paper-item>Item 6</paper-item>
-                <paper-item>Item 7</paper-item>
-                <paper-item>Item 8</paper-item>
+                <template is='dom-repeat' items='{{items}}' as='item'>
+                    <paper-item>{{item.name}}</paper-tab>
+                </template>
             </paper-listbox>
         </div>
     </template>
@@ -37,7 +32,9 @@ Component - form
             is: 'v-navigation',
 
             properties: {
-
+                items: {
+                    type: Array
+                }
             },
 
             observers: [
