@@ -15,12 +15,12 @@ Component - form
             <div class='title'>Title</div>
             <div class='spacer'></div>
             <template is='dom-repeat' items='{{items.icons}}' as='item'>
-                <paper-icon-button id='{{item.event}}' on-tap=handlePress icon='{{item.icon}}'></paper-icon-button>
+                <paper-icon-button id='{{item.event}}' on-tap=handleIconTabPress icon='{{item.icon}}'></paper-icon-button>
             </template>
             <div class='spacer'></div>
-            <paper-tabs selected='0' scrollable autoselect-delay='300' style='width: 600px;'>
+            <paper-tabs selected='2' scrollable autoselect-delay='300' style='width: 600px;'>
                 <template is='dom-repeat' items='{{items.tabs}}' as='item'>
-                    <paper-tab>{{item.name}}</paper-tab>
+                    <paper-tab id={{item.name}} on-tap=handleTabPress>{{item.name}}</paper-tab>
                 </template>
             </paper-tabs>
         </paper-toolbar>
@@ -39,9 +39,14 @@ Component - form
                 }
             },
 
-            handlePress: function(event) {
-               var eventHandler = event.target.parentNode.id;
+            handleIconTabPress: function(event) {
+               var eventHandler = event.currentTarget.id;
                this.fire(eventHandler);
+            },
+
+            handleTabPress: function(event) {
+               var tabName = event.currentTarget.id;
+               this.activeView = tabName;
             },
 
             toggleDrawer: function() {
