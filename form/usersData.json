@@ -24,7 +24,7 @@
             "event": "",
             "icon": "add"
         }, {
-            "event": "",
+            "event": "handle-remove",
             "icon": "remove"
         }, {
             "event": "",
