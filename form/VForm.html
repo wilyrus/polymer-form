@@ -47,9 +47,9 @@ Component - form
             </template>
             <template item={{item}} is='dom-if' if='{{isList(item.type)}}'>
                 <paper-dropdown-menu label='{{item.label}}'>
-                    <paper-listbox class="dropdown-content">
-                        <template is='dom-repeat' items='{{item.values}}'>
-                            <paper-item>{{item.value}}</paper-item>
+                    <paper-listbox class="dropdown-content" selected="0">
+                        <template is='dom-repeat' items='{{item.value}}'>
+                            <paper-item>{{item}}</paper-item>
                         </template>
                     </paper-listbox>
                 </paper-dropdown-menu>
