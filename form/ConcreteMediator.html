@@ -48,7 +48,7 @@ Implements the Mediator interface
                 <v-navigation items='{{items.navigationBar}}'></v-navigation>
             </paper-header-panel>
             <paper-header-panel main>
-                <v-toolbar activeView='{{activeView}}' items='{{items.toolbar}}'></v-toolbar>
+                <v-toolbar active-view='{{activeView}}' items='{{items.toolbar}}'></v-toolbar>
                 <div class='container flex-stretch-align' id='formContainer' hidden$="{{checkActiveView('form')}}">
                     <v-list class='datalist flex-stretch-vertical' id='list' items='[[items.table]]'></v-list>
                     <v-form class='dataform container flex-stretch-vertical' id='form'></v-form>
@@ -80,18 +80,17 @@ Implements the Mediator interface
                 'change-selection': '_loadDataToForm',
                 'handle-save': 'handleSave',
                 'handle-remove': 'handleRemove',
-                'toggle-drawer': 'toggleDrawer'
+                'toggle-drawer': 'toggleDrawer',
+                'active-view-changed': 'activeViewChanged'
             },
 
             observers: [
-                'itemsAddedOrRemoved(items.splices)',
-                'activeViewChanged()'
+                'itemsAddedOrRemoved(items.splices)'
             ],
 
             handleRemove: function() {
-                this.splice('items', this.selectedItem, 1);
+                this.splice('items.table', this.selectedItem, 1);
                 this.$.list.deselectListItem();
-                this.$.list.updateFormList();
                 this.$.notifyTost.text = 'Item removed';
                 this.$.notifyTost.open();
             },
