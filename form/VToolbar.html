@@ -39,7 +39,10 @@ Component - form
             is: 'v-toolbar',
 
             properties: {
-
+                activeView: {
+                    type: String,
+                    notify: true
+                }
             },
 
             handleSave: function(event) {
