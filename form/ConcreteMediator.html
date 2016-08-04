@@ -53,6 +53,13 @@ Implements the Mediator interface
                     <v-list class='datalist flex-stretch-vertical' id='list' items='[[items.table]]'></v-list>
                     <v-form class='dataform container flex-stretch-vertical' id='form'></v-form>
                 </div>
+                <div id='workflow' hidden$="{{checkActiveView('Workflow Scheme')}}">"Workflow Scheme"</div>
+                <div id='fields' hidden$="{{checkActiveView('Fields')}}">"Fields"</div>
+                <div id='security' hidden$="{{checkActiveView('Security')}}"> "Security"</div>
+                <div id='notifications' hidden$="{{checkActiveView('E-mail Notifications')}}"> "E-mail Notifications"</div>
+                <div id='export' hidden$="{{checkActiveView('Export Settings')}}">"Export Settings"</div>
+                <div id='csv' hidden$="{{checkActiveView('CSV Import')}}">"CSV Import"</div>
+                <div id='triggers' hidden$="{{checkActiveView('Event triggers')}}">"Event triggers"</div>
             </paper-header-panel>
         </paper-drawer-panel>
     </template>
@@ -72,7 +79,7 @@ Implements the Mediator interface
                 activeView: {
                     type: String,
                     notify: true,
-                    value: 'form'
+                    value: 'Form'
                 }
             },
 
@@ -127,8 +134,25 @@ Implements the Mediator interface
             activeViewChanged: function() {
                 var currentActiveView = this.activeView;
                 switch (currentActiveView) {
-                    case 'form':
+                    case 'Form':
                         this.$.formContainer.hidden = false;
+                        this.$.workflow.hidden = true;
+                        this.$.fields.hidden = true;
+                        this.$.security.hidden = true;
+                        this.$.notifications.hidden = true;
+                        this.$.export.hidden = true;
+                        this.$.csv.hidden = true;
+                        this.$.triggers.hidden = true;
+                        break;
+                    case 'Workflow Scheme':
+                        this.$.formContainer.hidden = true;
+                        this.$.workflow.hidden = false;
+                        this.$.fields.hidden = true;
+                        this.$.security.hidden = true;
+                        this.$.notifications.hidden = true;
+                        this.$.export.hidden = true;
+                        this.$.csv.hidden = true;
+                        this.$.triggers.hidden = true;
                         break;
                     default:
                         this.$.formContainer.hidden = false;
