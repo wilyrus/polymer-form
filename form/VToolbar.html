@@ -14,16 +14,12 @@ Component - form
             <paper-icon-button icon='menu' on-tap="toggleDrawer" id='superimp'></paper-icon-button>
             <div class='title'>Title</div>
             <div class='spacer'></div>
-            <paper-icon-button on-tap="handleSave" icon='save'></paper-icon-button>
-            <paper-icon-button on-tap="handleAdd" icon='add'></paper-icon-button>
-            <paper-icon-button on-tap="handleRemove" icon='remove'></paper-icon-button>
-            <paper-icon-button on-tap="handleCopy" icon='content-copy'></paper-icon-button>
-            <paper-icon-button on-tap="handlePaste" icon='content-paste'></paper-icon-button>
-            <paper-icon-button on-tap="handleUndo" icon='undo'></paper-icon-button>
-            <paper-icon-button on-tap="handleRedo" icon='redo'></paper-icon-button>
+            <template is='dom-repeat' items='{{items.icons}}' as='item'>
+                <paper-icon-button id='{{item.event}}' on-tap=handlePress icon='{{item.icon}}'></paper-icon-button>
+            </template>
             <div class='spacer'></div>
             <paper-tabs selected='0' scrollable autoselect-delay='300' style='width: 600px;'>
-                <template is='dom-repeat' items='{{items}}' as='item'>
+                <template is='dom-repeat' items='{{items.tabs}}' as='item'>
                     <paper-tab>{{item.name}}</paper-tab>
                 </template>
             </paper-tabs>
@@ -35,36 +31,13 @@ Component - form
 
             properties: {
                 items: {
-                    type: Array
+                    type: Object
                 }
             },
 
-            handleSave: function(event) {
-                this.fire('handle-save');
-            },
-
-            handleRemove: function(event) {
-                this.fire('handle-remove');
-            },
-
-            handleAdd: function(event) {
-                //  this.fire('handle-save');
-            },
-
-            handleCopy: function(event) {
-                //  this.fire('handle-save');
-            },
-
-            handlePaste: function(event) {
-                //  this.fire('handle-remove');
-            },
-
-            handleUndo: function(event) {
-                //  this.fire('handle-save');
-            },
-
-            handleRedo: function(event) {
-                //  this.fire('handle-remove');
+            handlePress: function(event) {
+               var eventHandler = event.target.parentNode.id;
+               this.fire(eventHandler);
             },
 
             toggleDrawer: function() {

@@ -16,23 +16,47 @@
     }, {
         "name": "Item 8"
     }],
-    "toolbar": [{
-        "name": "Workflow Scheme"
-    }, {
-        "name": "Fields"
-    }, {
-        "name": "Form"
-    }, {
-        "name": "Security"
-    }, {
-        "name": "E-mail Notifications"
-    }, {
-        "name": "Export Settings"
-    }, {
-        "name": "CSV Import"
-    }, {
-        "name": "Event triggers"
-    }],
+    "toolbar": {
+        "icons": [{
+            "event": "handle-save",
+            "icon": "save"
+        }, {
+            "event": "",
+            "icon": "add"
+        }, {
+            "event": "",
+            "icon": "remove"
+        }, {
+            "event": "",
+            "icon": "content-copy"
+        }, {
+            "event": "",
+            "icon": "content-paste"
+        }, {
+            "event": "",
+            "icon": "undo"
+        }, {
+            "event": "",
+            "icon": "redo"
+        }],
+        "tabs": [{
+            "name": "Workflow Scheme"
+        }, {
+            "name": "Fields"
+        }, {
+            "name": "Form"
+        }, {
+            "name": "Security"
+        }, {
+            "name": "E-mail Notifications"
+        }, {
+            "name": "Export Settings"
+        }, {
+            "name": "CSV Import"
+        }, {
+            "name": "Event triggers"
+        }]
+    },
     "table": [
         [{
             "flex": 90,
