@@ -29,7 +29,7 @@ Component - form
                 padding: 15px;
             }
         </style>
-        <template is='dom-repeat' items='{{formData}}' as='item'>
+        <template is='dom-repeat' items='[[formData]]' as='item'>
             <template item={{item}} is='dom-if' if='{{isSimpleField(item.type)}}'>
                 <paper-input-container style$='{{computeContainerClass(item.flex)}}'>
                     <label>{{item.label}}</label>
@@ -63,26 +63,6 @@ Component - form
             properties: {
                 formData: {
                     type: Array
-                },
-
-                formChanges: {
-                    type: Object,
-                    value: {}
-                }
-            },
-
-            observers: [
-                'formDataChanged(formData.*)'
-            ],
-
-            formDataChanged: function(data) {
-                //gaver form changes + some validation
-                var propertyId = this.get(data.path.replace('value', 'id'))
-                if (typeof propertyId === 'string') {
-                    this.formChanges[data.path] = {
-                        id: propertyId,
-                        value: data.value
-                    }
                 }
             },
 
