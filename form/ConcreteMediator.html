@@ -108,10 +108,7 @@ Implements the Mediator interface
             },
 
             handleSave: function() {
-                var changes = this.$.form.formChanges;
-                for (change in changes) {
-                    this.set('items.#' + this.selectedItem + change.replace('formData', ''), changes[change].value);
-                }
+                this.set('items.table#' + this.selectedItem, this.$.form.$.someForm.items);
                 this.$.list.updateFormList();
                 this.$.form.formChanges = {};
             },
