@@ -47,9 +47,9 @@ Component - form
             </template>
             <template item={{item}} is='dom-if' if='{{isList(item.type)}}'>
                 <paper-dropdown-menu label='{{item.label}}'>
-                    <paper-listbox class="dropdown-content">
-                        <template is='dom-repeat' items='{{item.values}}'>
-                            <paper-item>{{item.value}}</paper-item>
+                    <paper-listbox class='dropdown-content'>
+                        <template is='dom-repeat' items='{{item.value}}' as='value'>
+                            <paper-item>{{value}}</paper-item>
                         </template>
                     </paper-listbox>
                 </paper-dropdown-menu>
@@ -67,27 +67,27 @@ Component - form
             },
 
             computeContainerClass: function(flex) {
-                return 'flex:' + flex.toString() + '%;'
+                return 'flex:' + flex.toString() + '%;';
             },
 
             isSimpleField: function(type) {
-                return type !== 'email' && type !== 'tel' && type !== 'checkbox' && type !== 'list'
+                return type !== 'email' && type !== 'tel' && type !== 'checkbox' && type !== 'list';
             },
 
             isPhone: function(type) {
-                return type === 'tel'
+                return type === 'tel';
             },
 
             isMail: function(type) {
-                return type === 'email'
+                return type === 'email';
             },
 
             isCheckbox: function(type) {
-                return type === 'checkbox'
+                return type === 'checkbox';
             },
 
             isList: function(type) {
-                return type === 'list'
+                return type === 'list';
             },
 
             setData: function(data) {

@@ -12,10 +12,15 @@ Implements the Mediator interface
 
 <dom-module id='concrete-mediator'>
     <template>
-        <style is='custom-style'>
+        <style include="app-grid-style">
+            :host {
+                --app-grid-columns: 2;
+                --app-grid-item-height: 100%;
+            }
+
             .flex-stretch-align {
                 @apply(--layout-horizontal);
-                height: 100%;
+                height: 90%;
             }
 
             .flex-stretch-vertical {
@@ -49,9 +54,9 @@ Implements the Mediator interface
             </paper-header-panel>
             <paper-header-panel main>
                 <v-toolbar active-view='{{activeView}}' items='{{items.toolbar}}'></v-toolbar>
-                <div class='container flex-stretch-align' id='formContainer' hidden$="{{checkActiveView('form')}}">
-                    <v-list class='datalist flex-stretch-vertical' id='list' items='[[items.table]]'></v-list>
-                    <v-form class='dataform container flex-stretch-vertical' id='form'></v-form>
+                <div class='app-grid container flex-stretch-align' id='formContainer' hidden$="{{checkActiveView('form')}}">
+                    <v-list class='item datalist flex-stretch-vertical' id='list' items='[[items.table]]'></v-list>
+                    <v-form class='item dataform container flex-stretch-vertical' id='form'></v-form>
                 </div>
                 <div id='workflow' hidden$="{{checkActiveView('Workflow Scheme')}}">"Workflow Scheme"</div>
                 <div id='fields' hidden$="{{checkActiveView('Fields')}}">"Fields"</div>
