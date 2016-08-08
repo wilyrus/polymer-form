@@ -13,6 +13,7 @@ Component - form
             .link {
                 @apply(--layout-horizontal);
                 @apply(--layout-center-center);
+                color: white;
             }
         </style>
         <paper-toolbar>
@@ -23,7 +24,7 @@ Component - form
                 <paper-icon-button id='{{item.event}}' on-tap=handleIconTabPress icon='{{item.icon}}'></paper-icon-button>
             </template>
             <div class='spacer'></div>
-            <paper-tabs selected='2' scrollable autoselect-delay='300' style='width: 600px;'>
+            <paper-tabs scrollable autoselect-delay='300' style='width: 600px;'>
                 <template is='dom-repeat' items='{{items.tabs}}' as='item'>
                     <paper-tab>
                         <a class='link' href='{{item.href}}'>{{item.name}}</a>
