@@ -46,28 +46,29 @@ Implements the Mediator interface
                 background-color: var(--google-grey-100);
             }
         </style>
+        <app-location route='{{route}}'></app-location>
+        <app-route route='{{route}}' pattern='/:tabName' data='{{data}}'></app-route>
         <m-model id='formData' items='{{items}}'></m-model>
-        <paper-toast id="notifyTost" text="Default text"></paper-toast>
-        <paper-drawer-panel id="appDrawer" force-narrow>
+        <paper-toast id='notifyTost' text='Default text'></paper-toast>
+        <paper-drawer-panel id='appDrawer' force-narrow>
             <paper-header-panel drawer>
                 <v-navigation items='{{items.navigationBar}}'></v-navigation>
             </paper-header-panel>
             <paper-header-panel main>
-                <v-toolbar active-view='{{activeView}}' items='{{items.toolbar}}'></v-toolbar>
-                <div class='app-grid container flex-stretch-align' id='formContainer' hidden$="{{checkActiveView('form')}}">
-                    <v-list class='item datalist flex-stretch-vertical' id='list' items='[[items.table]]'></v-list>
-                    <v-form class='item dataform container flex-stretch-vertical' id='form'></v-form>
+                <v-toolbar items='{{items.toolbar}}'></v-toolbar>
+                <div id='formContainer' class='app-grid container flex-stretch-align' hidden$="{{!checkRoute(data,'form')}}">
+                    <v-list id='list' class='item datalist flex-stretch-vertical' items='[[items.table]]'></v-list>
+                    <v-form id='form' class='item dataform container flex-stretch-vertical'></v-form>
                 </div>
-                <div id='workflow' hidden$="{{checkActiveView('Workflow Scheme')}}">"Workflow Scheme"</div>
-                <div id='fields' hidden$="{{checkActiveView('Fields')}}">"Fields"</div>
-                <div id='security' hidden$="{{checkActiveView('Security')}}"> "Security"</div>
-                <div id='notifications' hidden$="{{checkActiveView('E-mail Notifications')}}"> "E-mail Notifications"</div>
-                <div id='export' hidden$="{{checkActiveView('Export Settings')}}">"Export Settings"</div>
-                <div id='csv' hidden$="{{checkActiveView('CSV Import')}}">"CSV Import"</div>
-                <div id='triggers' hidden$="{{checkActiveView('Event triggers')}}">"Event triggers"</div>
+                <div id='workflow' hidden$="{{!checkRoute(data,'workflow')}}">"Workflow Scheme"</div>
+                <div id='fields' hidden$="{{!checkRoute(data,'fields')}}">"Fields"</div>
+                <div id='security' hidden$="{{!checkRoute(data,'security')}}"> "Security"</div>
+                <div id='notifications' hidden$="{{!checkRoute(data,'notifications')}}"> "E-mail Notifications"</div>
+                <div id='export' hidden$="{{!checkRoute(data,'export')}}">"Export Settings"</div>
+                <div id='csv' hidden$="{{!checkRoute(data,'csv')}}">"CSV Import"</div>
+                <div id='triggers' hidden$="{{!checkRoute(data,'triggers')}}">"Event triggers"</div>
             </paper-header-panel>
         </paper-drawer-panel>
-    </template>
     </template>
     <script>
         Polymer({
@@ -80,11 +81,6 @@ Implements the Mediator interface
                 items: {
                     type: Array,
                     notify: true
-                },
-                activeView: {
-                    type: String,
-                    notify: true,
-                    value: 'Form'
                 }
             },
 
@@ -92,13 +88,25 @@ Implements the Mediator interface
                 'change-selection': '_loadDataToForm',
                 'handle-save': 'handleSave',
                 'handle-remove': 'handleRemove',
-                'toggle-drawer': 'toggleDrawer',
-                'active-view-changed': 'activeViewChanged'
+                'toggle-drawer': 'toggleDrawer'
             },
 
             observers: [
                 'itemsAddedOrRemoved(items.splices)'
             ],
+
+            checkRoute: function(route, viewName) {
+                switch (route.tabName) {
+                    case 'workflowView':
+                        if (viewName === 'workflow') return true;
+                        else return false;
+                        break;
+                    default:
+                        if (viewName === 'form') return true;
+                        else return false;
+                        break;
+                }
+            },
 
             handleRemove: function() {
                 this.splice('items.table', this.selectedItem, 1);
@@ -126,38 +134,6 @@ Implements the Mediator interface
                 this.selectedItem = this.items.table.indexOf(item);
                 if (item && item.length > 0) {
                     this.$.form.setData(item);
-                }
-            },
-
-            checkActiveView: function(requestedView) {
-                return this.activeView === requestedView;
-            },
-
-            activeViewChanged: function() {
-                var currentActiveView = this.activeView;
-                switch (currentActiveView) {
-                    case 'Form':
-                        this.$.formContainer.hidden = false;
-                        this.$.workflow.hidden = true;
-                        this.$.fields.hidden = true;
-                        this.$.security.hidden = true;
-                        this.$.notifications.hidden = true;
-                        this.$.export.hidden = true;
-                        this.$.csv.hidden = true;
-                        this.$.triggers.hidden = true;
-                        break;
-                    case 'Workflow Scheme':
-                        this.$.formContainer.hidden = true;
-                        this.$.workflow.hidden = false;
-                        this.$.fields.hidden = true;
-                        this.$.security.hidden = true;
-                        this.$.notifications.hidden = true;
-                        this.$.export.hidden = true;
-                        this.$.csv.hidden = true;
-                        this.$.triggers.hidden = true;
-                        break;
-                    default:
-                        this.$.formContainer.hidden = false;
                 }
             }
         });

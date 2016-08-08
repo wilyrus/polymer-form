@@ -25,11 +25,12 @@ Component - form
                 margin-bottom: 15px;
             }
 
-            paper-input-container, paper-dropdown-menu {
+            paper-input-container,
+            paper-dropdown-menu {
                 padding: 15px;
             }
         </style>
-        <template is='dom-repeat' items='[[formData]]' as='item'>
+        <template id='someForm' is='dom-repeat' items='[[formData]]' as='item'>
             <template item={{item}} is='dom-if' if='{{isSimpleField(item.type)}}'>
                 <paper-input-container style$='{{computeContainerClass(item.flex)}}'>
                     <label>{{item.label}}</label>

@@ -9,6 +9,11 @@ Component - form
             .spacer {
                 @apply(--layout-flex);
             }
+
+            .link {
+                @apply(--layout-horizontal);
+                @apply(--layout-center-center);
+            }
         </style>
         <paper-toolbar>
             <paper-icon-button icon='menu' on-tap='toggleDrawer'></paper-icon-button>
@@ -20,7 +25,9 @@ Component - form
             <div class='spacer'></div>
             <paper-tabs selected='2' scrollable autoselect-delay='300' style='width: 600px;'>
                 <template is='dom-repeat' items='{{items.tabs}}' as='item'>
-                    <paper-tab id={{item.name}} on-tap=handleTabPress>{{item.name}}</paper-tab>
+                    <paper-tab>
+                        <a class='link' href='{{item.href}}'>{{item.name}}</a>
+                    </paper-tab>
                 </template>
             </paper-tabs>
         </paper-toolbar>
@@ -30,10 +37,6 @@ Component - form
             is: 'v-toolbar',
 
             properties: {
-                activeView: {
-                    type: String,
-                    notify: true
-                },
                 items: {
                     type: Object
                 }
@@ -42,11 +45,6 @@ Component - form
             handleIconTabPress: function(event) {
                 var eventHandler = event.currentTarget.id;
                 this.fire(eventHandler);
-            },
-
-            handleTabPress: function(event) {
-                var tabName = event.currentTarget.id;
-                this.activeView = tabName;
             },
 
             toggleDrawer: function() {
