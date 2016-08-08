@@ -40,21 +40,29 @@
             "icon": "redo"
         }],
         "tabs": [{
-            "name": "Workflow Scheme"
+            "name": "Workflow Scheme",
+            "href": "workflowView"
         }, {
-            "name": "Fields"
+            "name": "Fields",
+            "href": "fieldsView"
         }, {
-            "name": "Form"
+            "name": "Form",
+            "href": "formView"
         }, {
-            "name": "Security"
+            "name": "Security",
+            "href": "securityView"
         }, {
-            "name": "E-mail Notifications"
+            "name": "E-mail Notifications",
+            "href": "notificationsView"
         }, {
-            "name": "Export Settings"
+            "name": "Export Settings",
+            "href": "exportView"
         }, {
-            "name": "CSV Import"
+            "name": "CSV Import",
+            "href": "csvView"
         }, {
-            "name": "Event triggers"
+            "name": "Event triggers",
+            "href": "triggersView"
         }]
     },
     "table": [
