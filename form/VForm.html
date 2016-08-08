@@ -29,7 +29,7 @@ Component - form
                 padding: 15px;
             }
         </style>
-        <template is='dom-repeat' items='[[formData]]' as='item'>
+        <template id='someForm' is='dom-repeat' items='[[formData]]' as='item'>
             <template item={{item}} is='dom-if' if='{{isSimpleField(item.type)}}'>
                 <paper-input-container style$='{{computeContainerClass(item.flex)}}'>
                     <label>{{item.label}}</label>

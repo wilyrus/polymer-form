@@ -5,7 +5,7 @@ Some header
 -->
 <dom-module id='m-model'>
     <template>
-        <iron-localstorage name='form-data' value='{{items}}' on-iron-localstorage-load-empty='_initializeForm'></iron-localstorage>
+        <iron-localstorage id='localStore' name='form-data' value='{{items}}' on-iron-localstorage-load-empty='_initializeForm'></iron-localstorage>
     </template>
     <script>
         Polymer({
@@ -34,9 +34,14 @@ Some header
             },
 
             _itemsLoaded: function() {
+              debugger
                 this.fire('items-loaded', {
                     items: this.items
                 });
+            },
+
+            saveData: function(){
+              debugger
             }
         });
     </script>

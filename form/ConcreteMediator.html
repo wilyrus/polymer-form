@@ -47,6 +47,12 @@ Implements the Mediator interface
             }
         </style>
         <m-model id='formData' items='{{items}}'></m-model>
+        <app-localstorage-document id='formStorage' key="uber" data="{{items}}"></app-localstorage-document>
+        <!--
+        <platinum-sw-register auto-register>
+            <platinum-sw-cache></platinum-sw-cache>
+        </platinum-sw-register>
+      -->
         <paper-toast id="notifyTost" text="Default text"></paper-toast>
         <paper-drawer-panel id="appDrawer" force-narrow>
             <paper-header-panel drawer>
@@ -108,7 +114,9 @@ Implements the Mediator interface
             },
 
             handleSave: function() {
-                this.set('items.table#' + this.selectedItem, this.$.form.$.someForm.items);
+              debugger
+                this.$.formData.saveData();
+                this.set('items.table.#' + this.selectedItem, this.$.form.$.someForm.items);
                 this.$.list.updateFormList();
                 this.$.form.formChanges = {};
             },
