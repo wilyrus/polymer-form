@@ -56,17 +56,17 @@ Implements the Mediator interface
             </paper-header-panel>
             <paper-header-panel main>
                 <v-toolbar items='{{items.toolbar}}'></v-toolbar>
-                <div id='formContainer' class='app-grid container flex-stretch-align' hidden$="{{!checkRoute(data,'form')}}">
+                <div id='formContainer' class='app-grid container flex-stretch-align' hidden$="{{!checkRoute(data,'formView')}}">
                     <v-list id='list' class='item datalist flex-stretch-vertical' items='[[items.table]]'></v-list>
                     <v-form id='form' class='item dataform container flex-stretch-vertical'></v-form>
                 </div>
-                <div id='workflow' hidden$="{{!checkRoute(data,'workflow')}}">"Workflow Scheme"</div>
-                <div id='fields' hidden$="{{!checkRoute(data,'fields')}}">"Fields"</div>
-                <div id='security' hidden$="{{!checkRoute(data,'security')}}"> "Security"</div>
-                <div id='notifications' hidden$="{{!checkRoute(data,'notifications')}}"> "E-mail Notifications"</div>
-                <div id='export' hidden$="{{!checkRoute(data,'export')}}">"Export Settings"</div>
-                <div id='csv' hidden$="{{!checkRoute(data,'csv')}}">"CSV Import"</div>
-                <div id='triggers' hidden$="{{!checkRoute(data,'triggers')}}">"Event triggers"</div>
+                <div id='workflow' hidden$="{{!checkRoute(data,'workflowView')}}">"Workflow Scheme"</div>
+                <div id='fields' hidden$="{{!checkRoute(data,'fieldsView')}}">"Fields"</div>
+                <div id='security' hidden$="{{!checkRoute(data,'securityView')}}"> "Security"</div>
+                <div id='notifications' hidden$="{{!checkRoute(data,'notificationsView')}}"> "E-mail Notifications"</div>
+                <div id='export' hidden$="{{!checkRoute(data,'exportView')}}">"Export Settings"</div>
+                <div id='csv' hidden$="{{!checkRoute(data,'csvView')}}">"CSV Import"</div>
+                <div id='triggers' hidden$="{{!checkRoute(data,'triggersView')}}">"Event triggers"</div>
             </paper-header-panel>
         </paper-drawer-panel>
     </template>
@@ -96,16 +96,8 @@ Implements the Mediator interface
             ],
 
             checkRoute: function(route, viewName) {
-                switch (route.tabName) {
-                    case 'workflowView':
-                        if (viewName === 'workflow') return true;
-                        else return false;
-                        break;
-                    default:
-                        if (viewName === 'form') return true;
-                        else return false;
-                        break;
-                }
+                if ((route.tabName === viewName) || ((viewName === 'formView') && (route.tabName === ''))) return true;
+                else return false;
             },
 
             handleRemove: function() {

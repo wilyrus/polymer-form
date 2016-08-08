@@ -31,22 +31,22 @@ Component - form
             }
         </style>
         <template id='someForm' is='dom-repeat' items='[[formData]]' as='item'>
-            <template item={{item}} is='dom-if' if='{{isSimpleField(item.type)}}'>
+            <template item='{{item}}' is='dom-if' if='{{isSimpleField(item.type)}}'>
                 <paper-input-container style$='{{computeContainerClass(item.flex)}}'>
                     <label>{{item.label}}</label>
-                    <input is='iron-input' bind-value='{{item.value}}' type={{item.type}}>
+                    <input is='iron-input' bind-value='{{item.value}}' type='{{item.type}}'>
                 </paper-input-container>
             </template>
-            <template item={{item}} is='dom-if' if='{{isCheckbox(item.type)}}'>
+            <template item='{{item}}' is='dom-if' if='{{isCheckbox(item.type)}}'>
                 <paper-checkbox auto-validate checked='{{item.value}}' style$='{{computeContainerClass(item.flex)}}'>{{item.label}}</paper-checkbox>
             </template>
-            <template item={{item}} is='dom-if' if='{{isPhone(item.type)}}'>
+            <template item='{{item}}' is='dom-if' if='{{isPhone(item.type)}}'>
                 <gold-phone-input auto-validate label='{{item.label}}' value='{{item.value}}' style$='{{computeContainerClass(item.flex)}}'></gold-phone-input>
             </template>
-            <template item={{item}} is='dom-if' if='{{isMail(item.type)}}'>
+            <template item='{{item}}' is='dom-if' if='{{isMail(item.type)}}'>
                 <gold-email-input auto-validate label='{{item.label}}' value='{{item.value}}' style$='{{computeContainerClass(item.flex)}}'></gold-email-input>
             </template>
-            <template item={{item}} is='dom-if' if='{{isList(item.type)}}'>
+            <template item='{{item}}' is='dom-if' if='{{isList(item.type)}}'>
                 <paper-dropdown-menu label='{{item.label}}'>
                     <paper-listbox class='dropdown-content'>
                         <template is='dom-repeat' items='{{item.value}}' as='value'>
